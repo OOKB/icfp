@@ -6,6 +6,8 @@ class Poster extends Component {
   render() {
     const { sessionName, sessionStartTime, sessionRoom, presentations } = this.props;
 
+
+
     return (
       <section className="poster-session">
 
@@ -19,7 +21,7 @@ class Poster extends Component {
           {/* <!-- day? --> */}
         </ul>
 
-        { presentations.map( item => <Presentation key={item.iD} {...item} /> ) }
+        { presentations.map( item => <Presentation key={item.orderof+item.iD} {...item} /> ) }
 
       </section>
     );
