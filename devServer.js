@@ -3,6 +3,10 @@ var express = require('express');
 var webpack = require('webpack');
 var config = require('./webpack.config.dev');
 
+var Wreck = require('wreck');
+
+var apiData = null;
+
 var app = express();
 var compiler = webpack(config);
 
@@ -13,8 +17,16 @@ app.use(require('webpack-dev-middleware')(compiler, {
 
 app.use(require('webpack-hot-middleware')(compiler));
 
-app.get('*', function(req, res) {
-  res.sendFile(path.join(__dirname, 'index.html'));
+app.use(express.static('public'));
+
+app.get('/api', function(req, res) {
+  var fullUrl = 'http://www.xcdsystem.com/icfp/admin/program.json';
+  if (apiData) {
+    res.send([{ok: true}]);
+  }
+  else {
+    res.send([{ok: false}]);
+  }
 });
 
 app.listen(3000, 'localhost', function(err) {

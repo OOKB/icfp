@@ -49,6 +49,10 @@
     "webpack-hot-middleware": "^2.0.0"
   },
   "dependencies": {
-    "react": "^0.13.0"
+    "humps": "^0.7.0",
+    "isomorphic-fetch": "^2.1.1",
+    "lodash": "^3.10.1",
+    "react": "^0.13.0",
+    "wreck": "^6.3.0"
   }
 }
