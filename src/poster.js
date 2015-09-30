@@ -1,30 +1,29 @@
 import React, { Component } from 'react';
 
-<!--
-// Poster
-// [poster session] [time] [location]
-// [Poster ID]: [Poster Title]
-// [Presenter], [Presenter’s Organization]
-// [Co-author(s)], [Co-author’s Organization] – repeated per number of co-authors
+import Presentation from './Presentation';
 
 class Poster extends Component {
   render() {
-    { SessionName, SessionStartTime, SessionRoom, Presentations } = this.props;
+    const { sessionName, sessionStartTime, sessionRoom, presentations } = this.props;
 
     return (
-      <section class="poster-session">
+      <section className="poster-session">
 
         {/* 1 set of meta-data listings per poster-session */}
-        <ul class="meta-data">
-          <li class="posterSession"><h1>{SessionName}</h1></li>
-          <li class="time">{SessionStartTime}</li>
-          <li class="location">{SessionRoom}</li>
+        <ul className="meta-data">
+          <li className="posterSession">
+            <h1>{sessionName}</h1>
+          </li>
+          <li className="time">{sessionStartTime}</li>
+          <li className="location">{sessionRoom}</li>
           {/* <!-- day? --> */}
         </ul>
+
+        { presentations.map( item => <Presentation key={item.iD} {...item} /> ) }
 
       </section>
     );
   }
 }
 
-default export Poster;
+export default Poster;

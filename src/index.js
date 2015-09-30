@@ -1,8 +1,7 @@
 import React from 'react';
 import { App } from './App';
 import 'isomorphic-fetch';
-import { camelizeKeys } from 'humps';
-
+import {where} from 'lodash';
 const fullUrl = '/api';
 
 fetch(fullUrl)
@@ -13,9 +12,7 @@ fetch(fullUrl)
     if (!response.ok) {
       return Promise.reject(json);
     }
-    const data = camelizeKeys(json);
-    console.log(data[0]);
+    const items = where(json, {sessionType: 'Poster presentations'});
+    console.log('render');
+    React.render(<App items={items}/>, document.getElementById('root'));
   });
-
-
-React.render(<App />, document.getElementById('root'));
