@@ -1,32 +1,32 @@
-<!--
+{/*
 Poster
 [poster session] [time] [location]
 [Poster ID]: [Poster Title]
 [Presenter], [Presenter’s Organization]
 [Co-author(s)], [Co-author’s Organization] – repeated per number of co-authors
--->
+*/}
 
-<!-- repeat per poster session — should end up with 5 "poster-sessions" -->
+{/* repeat per poster session — should end up with 5 "poster-sessions" */}
 <section class="poster-session">
 
-  <!-- 1 set of meta-data listings per poster-session -->
+  {/* 1 set of meta-data listings per poster-session */}
   <ul class="meta-data">
     <li class="posterSession"><h1>{SessionName}</h1></li>
     <li class="time">{SessionStartTime}</li>
     <li class="location">{SessionRoom}</li>
-    <!-- day? -->
+    {/* day? */}
   </ul>
 
-  <!-- print this out for each poster — or "Presentations" as they are entered in the data -->
+  {/* print this out for each poster — or "Presentations" as they are entered in the data */}
   <div class="poster">
-    <!-- Presentation -->
+    {/* Presentation */}
     <div class="meta-data">
       <p class="posterID">{ID}</p>
       <h2 class="posterTitle">{Title}</h2>
       <ul class="authors">
-        <!-- presenter prints out first, presenter with value of "1" in the json indicated they are the presenter -->
+        {/* presenter prints out first, presenter with value of "1" in the json indicated they are the presenter */}
         <li class="presenter"><span class="name">{Firstname} {Lastname}</span>, <span class="company">{Company}</span></li>
-        <!-- repeat for each co-author? if presenter is 0, then give class co-author-->
+        {/* repeat for each co-author? if presenter is 0, then give class co-author*/}
         <li class="co-author"><span class="name">{Firstname} {Lastname}</span>, <span class="company">{Company}</span></li>
       </ul>
     </div>
