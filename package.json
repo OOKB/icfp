@@ -1,5 +1,5 @@
 {
-  "name": "react-transform-boilerplate",
+  "name": "icfp",
   "version": "1.0.0",
   "description": "A new Webpack boilerplate with hot reloading React components, and error handling on module and component level.",
   "scripts": {
