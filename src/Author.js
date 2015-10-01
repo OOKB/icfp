@@ -8,10 +8,12 @@ class Author extends Component {
       className = 'presenter';
     }
     const fullName = `${firstname} ${lastname}`;
-
+    const seperator = ', ';
     return (
       <li className={className}>
-        <span className="name">{fullName}</span>, <span className="company">{company}</span>
+        <span className="name">{fullName}</span>
+        {seperator}
+        <span className="company">{company}</span>
       </li>
     );
   }
