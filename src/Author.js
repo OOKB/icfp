@@ -11,10 +11,7 @@ class Author extends Component {
 
     return (
       <li className={className}>
-        <span className="name">
-          {fullName}
-        </span>,
-        <span className="company">{company}</span>
+        <span className="name">{fullName}</span>, <span className="company">{company}</span>
       </li>
     );
   }
