@@ -13,7 +13,7 @@ class Presentation extends Component {
         <div className="meta-data">
           <p className="posterID">{iD}</p>
           <h2 className="posterTitle">{title}</h2>
-          <ul className="authors">
+          <ul className="authors list-reset">
             { authors.map( item => <Author key={item.contactID} {...item} /> ) }
           </ul>
         </div>

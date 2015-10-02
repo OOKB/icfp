@@ -11,7 +11,7 @@ class Poster extends Component {
       <section className="poster-session">
 
         {/* 1 set of meta-data listings per poster-session */}
-        <ul className="meta-data">
+        <ul className="meta-data list-reset">
           <li className="posterSession sessionName">
             <h1>{sessionName}</h1>
           </li>

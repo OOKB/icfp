@@ -18,6 +18,7 @@ class Oralpresentation extends Component {
           </li>
           <li className="time">{sessionStartTime}</li>
           <li className="location">{sessionRoom}</li>
+          <li>Moderators, but I do not know where this data comes from</li>
           {/* <!-- day? --> */}
         </ul>
 
