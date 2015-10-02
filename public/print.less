@@ -1,6 +1,8 @@
 /** basic page setup **/
 @page {
   size: 8.2677in 11.6929in; /* width height */
+  size: 210mm 297mm; /* width height */
+  size: A4;
   margin-top: 0.625in;
   margin-bottom: 1.2405in;
   orphans: 2;
@@ -42,8 +44,8 @@ html {
 }
 
 body {
-  margin: 0;
-  padding: 0;
+//  margin: 0;
+//  padding: 0;
   color: black;
 }
 
@@ -73,6 +75,18 @@ h2,h3,h4,h5,h6 {
 /** style main poster session times **/
 .poster-session {
   margin-top:1.0833in;
+  margin-bottom:1.0833in;
+  page-break-before: always;
+}
+
+.all {
+  -webkit-column-count: 2; /* Chrome, Safari, Opera */
+  -moz-column-count: 2; /* Firefox */
+  column-count: 2;
+  /**/
+  -webkit-column-gap: 1em; /* Chrome, Safari, Opera */
+  -moz-column-gap: 1em; /* Firefox */
+  column-gap: 1em;
 }
 .time {
   font-size: 2em;
@@ -90,6 +104,7 @@ h2,h3,h4,h5,h6 {
   margin-top: 1.2em;
   padding-top: 1.2em;
   padding-left: 4em;
+  page-break-after: auto;
 }
 /** id and title **/
 .posterID {

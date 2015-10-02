@@ -20,7 +20,9 @@ class Poster extends Component {
           {/* <!-- day? --> */}
         </ul>
 
-        { presentations.map( item => <Presentation key={item.orderof+item.iD} {...item} /> ) }
+        <div className="all">
+          { presentations.map( item => <Presentation key={item.orderof+item.iD} {...item} /> ) }
+        </div>
 
       </section>
     );
