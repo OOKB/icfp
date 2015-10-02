@@ -2,20 +2,21 @@ import React, { Component } from 'react';
 
 import Presentation from './Presentation';
 
-class Poster extends Component {
+class Oralpresentation extends Component {
   render() {
-    const { sessionName, sessionStartTime, sessionEndTime, sessionRoom, presentations } = this.props;
-    const sessionTime = `${sessionStartTime}-${sessionEndTime}`;
+    const { sessionName, sessionStartTime, sessionRoom, presentations } = this.props;
+
+
 
     return (
-      <section className="poster-session">
+      <section className="oral-presentation">
 
         {/* 1 set of meta-data listings per poster-session */}
         <ul className="meta-data">
-          <li className="posterSession sessionName">
+          <li className="sessionName">
             <h1>{sessionName}</h1>
           </li>
-          <li className="time">{sessionTime} </li>
+          <li className="time">{sessionStartTime}</li>
           <li className="location">{sessionRoom}</li>
           {/* <!-- day? --> */}
         </ul>
@@ -27,4 +28,4 @@ class Poster extends Component {
   }
 }
 
-export default Poster;
+export default Oralpresentation;
