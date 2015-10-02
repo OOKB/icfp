@@ -7,7 +7,8 @@ export class App extends Component {
     const { items } = this.props;
     return (
       <div>
-        <h2>sample</h2>
+        <h1>Platen: HTML»Print demo</h1>
+        <h2>International Conference on Family Planning.</h2>
         { items.map( item => <Poster key={item.sessionID} {...item} /> ) }
       </div>
     );

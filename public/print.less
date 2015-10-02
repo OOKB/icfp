@@ -33,6 +33,7 @@
 /** some basic typography **/
 @gentonaStack: "Gentona Book", GentonaBook, "Gentona", "Helvetica Neue", Helvetica, Arial, sans-serif;
 @arnhemStack:  "Arnhem Pro", ArnhemPro, Georgia, serif;
+@leagueStack: "League Gothic", LeagueGothic, sans-serif;
 
 html {
   margin: 0;
@@ -48,11 +49,44 @@ body {
 
 h1, h2, h3, h4, h5, h6 {
   font-family: @gentonaStack;
-  margin: 2em 0 0.5em 0;
+  margin: 0;
   page-break-after: avoid;
   font-weight: bold;
 }
 
+.list-reset {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+/** style some headlines **/
+h1 {
+  font-size: 2em;
+  text-transform: uppercase;
+}
+
+h2,h3,h4,h5,h6 {
+  font-size: 1em;
+}
+
+/** style main poster session times **/
+.poster-session {
+  margin-top:1.0833in;
+}
+
+.time {
+  font-size: 2em;
+  font-weight: 100;
+  color: rgba(131,48,94,1);
+}
+
+/** main poster block settings **/
+.poster {
+  border-top: 1px solid black;
+  margin-top: 1.2em;
+  padding-top: 1.2em;
+}
 /** style author names **/
 .presenter { font-size: 1.1em; font-style: italic; }
 .company { color: gray; }
