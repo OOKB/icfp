@@ -10,13 +10,15 @@ class Presentation extends Component {
     // presenter prints out first, presenter with value of "1" in the json indicated they are the presenter
 
     return (
-      <poster>
-        <sessionCode>{iD}</sessionCode>
-        <postertitle>{title}</postertitle>
-        <authors>
-          { authors.map( item => <Author key={item.contactID} {...item} /> ) }
-        </authors>
-      </poster>
+      <div className="poster">
+        <div className="meta-data">
+          <p className="posterID">{iD}</p>
+          <h2 className="posterTitle">{title}</h2>
+          <ul className="authors list-reset">
+            { authors.map( item => <Author key={item.contactID} {...item} /> ) }
+          </ul>
+        </div>
+      </div>
     );
   }
 }

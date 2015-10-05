@@ -63,20 +63,28 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /** style some headlines **/
-h1 {
+h1,
+sessionname {
   font-size: 2em;
   text-transform: uppercase;
+  display:block;
+  font-weight: bold;
 }
 
-h2,h3,h4,h5,h6 {
+h2,h3,h4,h5,h6,
+postertitle, title {
   font-size: 1em;
+  display:block;
+  font-weight: bold;
 }
 
 /** style main poster session times **/
-.poster-session {
+.poster-session,
+poster-session {
   margin-top:1.0833in;
   margin-bottom:1.0833in;
   page-break-before: always;
+  display: block;
 }
 
 //.all {
@@ -88,30 +96,44 @@ h2,h3,h4,h5,h6 {
 //  -moz-column-gap: 1em; /* Firefox */
 //  column-gap: 1em;
 //}
-.time {
+.time,
+sessiontime {
   font-size: 2em;
   font-weight: 100;
   color: rgba(131,48,94,1);
+  display: block;
 }
-.location {
+.location,
+sessionroom {
   text-transform: uppercase;
   font-weight: 100;
   line-height: 2.4;
+  display: block;
 }
 /** main poster block settings **/
-.poster {
+.poster,
+poster {
   border-top: 1px solid black;
   margin-top: 1.2em;
   padding-top: 1.2em;
   padding-left: 4em;
   page-break-after: auto;
+  display: block;
 }
 /** id and title **/
-.posterID {
+.posterID,
+sessionCode {
   margin: 0 0 0 -4em;
   font-weight: 100;
   float: left;
 }
 /** style author names **/
-.presenter { font-size: 1.1em; font-weight: 100; font-style: italic; }
-.company { color: gray; }
+authors,
+author {
+  display:block;
+}
+.presenter,
+presenter { font-size: 1.1em; font-weight: 100; font-style: italic; }
+.company,
+company { color: gray; }
+

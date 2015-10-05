@@ -8,23 +8,17 @@ class Poster extends Component {
     const sessionTime = `${sessionStartTime}-${sessionEndTime}`;
 
     return (
-      <section className="poster-session">
+      <poster-session>
 
         {/* 1 set of meta-data listings per poster-session */}
-        <ul className="meta-data list-reset">
-          <li className="posterSession sessionName">
-            <h1>{sessionName}</h1>
-          </li>
-          <li className="time">{sessionTime} </li>
-          <li className="location">{sessionRoom}</li>
-          {/* <!-- day? --> */}
-        </ul>
+        <sessionName>{sessionName}</sessionName>
+        <sessionTime>{sessionTime}</sessionTime>
+        <sessionRoom>{sessionRoom}</sessionRoom>
+        {/* <!-- day? --> */}
 
-        <div className="all">
-          { presentations.map( item => <Presentation key={item.orderof+item.iD} {...item} /> ) }
-        </div>
+        { presentations.map( item => <Presentation key={item.orderof+item.iD} {...item} /> ) }
 
-      </section>
+      </poster-session>
     );
   }
 }
