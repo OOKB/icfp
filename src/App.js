@@ -9,7 +9,7 @@ export class App extends Component {
       <div>
         <h1>Platen: HTML»Print demo</h1>
         <h2>International Conference on Family Planning.</h2>
-        { items.map( item => <Poster key={item.sessionID} {...item} /> ) }
+        { items.map( (item, i) => <Poster key={item.sessionID} num={i+1} {...item} /> ) }
       </div>
     );
   }

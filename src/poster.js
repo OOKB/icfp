@@ -4,7 +4,7 @@ import Presentation from './Presentation';
 
 class Poster extends Component {
   render() {
-    const { sessionName, sessionStartTime, sessionEndTime, sessionRoom, presentations } = this.props;
+    const { sessionName, sessionStartTime, sessionEndTime, sessionRoom, presentations, num } = this.props;
     const sessionTime = `${sessionStartTime}-${sessionEndTime}`;
 
     return (
@@ -17,7 +17,12 @@ class Poster extends Component {
         {/* <!-- day? --> */}
 
         <columns>
-          { presentations.map( item => <Presentation key={item.orderof+item.iD} {...item} /> ) }
+          { presentations.map( (item, i) => {
+            const presNum = `${num}.${i+1}`;
+            return (
+              <Presentation num={presNum} key={presNum} {...item} />
+            )
+          })}
         </columns>
 
       </poster-session>
