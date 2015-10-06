@@ -69,6 +69,10 @@ sessionname {
   text-transform: uppercase;
   display:block;
   font-weight: bold;
+  /****/
+  -webkit-column-span: all; /* Chrome, Safari, Opera */
+  -moz-column-span: all; /* Firefox */
+  column-span: all;
 }
 
 h2,h3,h4,h5,h6,
@@ -76,6 +80,14 @@ postertitle, title {
   font-size: 1em;
   display:block;
   font-weight: bold;
+}
+
+sessionname,
+sessiontime,
+sessionroom {
+  -webkit-column-span: all; /* Chrome, Safari, Opera */
+  -moz-column-span: all; /* Firefox */
+  column-span: all;
 }
 
 /** style main poster session times **/
@@ -87,15 +99,18 @@ poster-session {
   display: block;
 }
 
-//.all {
-//  -webkit-column-count: 2; /* Chrome, Safari, Opera */
-//  -moz-column-count: 2; /* Firefox */
-//  column-count: 2;
-//  /**/
-//  -webkit-column-gap: 1em; /* Chrome, Safari, Opera */
-//  -moz-column-gap: 1em; /* Firefox */
-//  column-gap: 1em;
-//}
+.columns, columns {
+  display: block;
+  margin-top: 1.2em;
+  /**/
+  -webkit-column-count: 2; /* Chrome, Safari, Opera */
+  -moz-column-count: 2; /* Firefox */
+  column-count: 2;
+  -webkit-column-gap: 1em; /* Chrome, Safari, Opera */
+  -moz-column-gap: 1em; /* Firefox */
+  column-gap: 1em;
+}
+
 .time,
 sessiontime {
   font-size: 2em;
@@ -110,15 +125,18 @@ sessionroom {
   line-height: 2.4;
   display: block;
 }
+
 /** main poster block settings **/
 .poster,
 poster {
   border-top: 1px solid black;
-  margin-top: 1.2em;
-  padding-top: 1.2em;
-  padding-left: 4em;
-  page-break-after: auto;
   display: block;
+  padding-top: 1.2em;
+  padding-bottom: 1.2em;
+  padding-left: 4em;
+  /**/
+  page-break-after: auto;
+  page-break-inside:avoid;
 }
 /** id and title **/
 .posterID,

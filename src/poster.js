@@ -16,7 +16,9 @@ class Poster extends Component {
         <sessionRoom>{sessionRoom}</sessionRoom>
         {/* <!-- day? --> */}
 
-        { presentations.map( item => <Presentation key={item.orderof+item.iD} {...item} /> ) }
+        <columns>
+          { presentations.map( item => <Presentation key={item.orderof+item.iD} {...item} /> ) }
+        </columns>
 
       </poster-session>
     );

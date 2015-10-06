@@ -23,10 +23,12 @@ class Author extends Component {
       AuthorTag = Presenter;
     }
     const fullName = `${firstname} ${lastname}`;
+    const separator = ', ';
 
   return (
       <AuthorTag>
         <fullname>{fullName}</fullname>
+        {separator}
         <company>{company}</company>
       </AuthorTag>
     );
