@@ -51,6 +51,7 @@
   },
   "dependencies": {
     "humps": "^0.7.0",
+    "inflection": "^1.7.1",
     "isomorphic-fetch": "^2.1.1",
     "lodash": "^3.10.1",
     "react": "^0.13.0",

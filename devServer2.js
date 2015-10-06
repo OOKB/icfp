@@ -8,6 +8,7 @@ import webpackConfig from './webpack.config.dev';
 
 import Wreck from 'wreck';
 import {camelizeKeys} from 'humps';
+import {titleize} from 'inflection';
 
 // import { App } from './src/App';
 
@@ -27,6 +28,10 @@ app.use(Express.static('public'));
 
 let apiData = null;
 
+function isUpperCase(str) {
+  return str === str.toUpperCase();
+}
+
 function fixDataItem(item) {
   item.presentations = item.presentations.map((presentation) => {
     const description = {};
@@ -34,6 +39,30 @@ function fixDataItem(item) {
       description[desc.fieldLabel.toLowerCase()] = desc.fieldValue
     )
     presentation.description = camelizeKeys(description);
+    if (presentation.description.title) {
+      let presentationTitle = presentation.description.title;
+      if (isUpperCase(presentationTitle)) {
+        presentationTitle = titleize(presentationTitle);
+      }
+      presentation.description.title = presentationTitle;
+    }
+    presentation.authors = presentation.authors.map((author) => {
+      const { firstname, lastname, company, ...rest } = author;
+      let companyStr = company;
+      if (company.split(' ').length > 1 && isUpperCase(company)) {
+        companyStr = titleize(company);
+      }
+      return {
+        company: companyStr,
+        firstname: titleize(firstname),
+        lastname: titleize(lastname),
+        ...rest
+      }
+    })
+    if (presentation.authors.length > 1 && presentation.authors[0].presenter !== 1) {
+      const presenter = _.remove(presentation.authors, {presenter: 1})
+      presentation.authors = presenter.concat(presentation.authors);
+    }
     return presentation;
   })
   return item;
