@@ -132,8 +132,8 @@ sessionroom {
 poster {
   border-top: 1px solid black;
   display: block;
-  padding-top: 1.2rem;
-  padding-bottom: 1.2rem;
+  padding-top: 1rem;
+  padding-bottom: 1.3333333333333rem;
   padding-left: 4rem;
   /**/
   page-break-after: auto;
@@ -149,16 +149,36 @@ sessionCode {
 /** style author names **/
 authors,
 author {
-  display:block;
+  display: inline-block;
+  font-weight: 300;
+}
+
+author::after {
+  content: "; ";
+  display: inline-block;
+  margin-right: .225em;
+}
+
+author:last-child::after {
+  content: "";
+  margin-right: 0;
+}
+
+author:first-child::before {
+  content: "Co-Author: ";
+  font-size: .85rem;
+  font-weight: normal;
+  color: gray;
+  text-transform: uppercase;
 }
 
 .presenter,
 presenter {
   font-weight: 100;
   font-style: italic;
+  display: block;
 }
 
-.presenter::before,
 presenter::before {
   content: 'Presenter: ';
   font-size: .85rem;
