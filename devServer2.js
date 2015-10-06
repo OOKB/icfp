@@ -28,8 +28,13 @@ app.use(Express.static('public'));
 
 let apiData = null;
 
-function isUpperCase(str) {
-  return str === str.toUpperCase();
+function doTitleize(str) {
+  if (str === str.toUpperCase() || str.toLowerCase()) {
+    return titleize(str);
+  }
+  else {
+    return str;
+  }
 }
 
 function fixDataItem(item) {
@@ -40,25 +45,21 @@ function fixDataItem(item) {
     )
     presentation.description = camelizeKeys(description);
     if (presentation.description.title) {
-      let presentationTitle = presentation.description.title;
-      if (isUpperCase(presentationTitle)) {
-        presentationTitle = titleize(presentationTitle);
-      }
-      presentation.description.title = presentationTitle;
+      presentation.description.title = doTitleize(presentation.description.title);
     }
     presentation.authors = presentation.authors.map((author) => {
       const { firstname, lastname, company, ...rest } = author;
       let companyStr = company;
-      if (company.split(' ').length > 1 && isUpperCase(company)) {
-        companyStr = titleize(company);
+      if (company.split(' ').length > 1) {
+        companyStr = doTitleize(company);
       }
       return {
         company: companyStr,
-        firstname: titleize(firstname),
-        lastname: titleize(lastname),
+        firstname: doTitleize(firstname),
+        lastname: doTitleize(lastname),
         ...rest
       }
-    })
+    });
     if (presentation.authors.length > 1 && presentation.authors[0].presenter !== 1) {
       const presenter = _.remove(presentation.authors, {presenter: 1})
       presentation.authors = presenter.concat(presentation.authors);
