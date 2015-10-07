@@ -73,8 +73,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /** style some headlines **/
-h1,
-sessionname {
+h1 {
   font-size: 2rem;
   text-transform: uppercase;
   display:block;
@@ -92,12 +91,35 @@ postertitle, title {
   font-weight: bold;
 }
 
+sessionname {
+  font-family: @leagueStack;
+  font-size: 3rem;
+  font-weight: 400;
+}
+
 sessionname,
 sessiontime,
 sessionroom {
   -webkit-column-span: all; /* Chrome, Safari, Opera */
   -moz-column-span: all; /* Firefox */
   column-span: all;
+}
+
+poster-session:nth-of-type(1) sessionname,
+poster-session:nth-of-type(2) sessionname {
+//  color: device-cmyk(4%, 36%, 70%, 0);
+  color: rgba(239,171,98,1);
+}
+
+poster-session:nth-of-type(3) sessionname,
+poster-session:nth-of-type(4) sessionname {
+//  color: device-cmyk(50%, 15%, 66%, 10%);
+  color: rgba(126,162,111,1);
+}
+
+poster-session:nth-of-type(5) sessionname {
+//  color: device-cmyk(11%, 76%, 100%, 2%);
+  color: rgba(215,94,39,1);
 }
 
 /** style main poster session times **/
@@ -128,6 +150,7 @@ sessiontime {
   color: rgba(131,48,94,1);
   display: block;
 }
+
 .location,
 sessionroom {
   text-transform: uppercase;
@@ -138,10 +161,10 @@ sessionroom {
 }
 
 /** main poster block settings **/
-.poster,
-poster {
-  border-top: .5pt solid black;
+.poster, poster {
+  border-top: 1pt solid black;
   display: block;
+  font-size: 1rem;
   padding-top: 1rem;
   padding-bottom: 1.5rem;
   padding-left: 4rem;
@@ -150,15 +173,13 @@ poster {
   page-break-inside:avoid;
 }
 /** id and title **/
-.posterID,
-sessionCode {
+.posterID, sessionCode {
   margin: 0 0 0 -4rem;
   font-weight: 100;
   float: left;
 }
 /** style author names **/
-.presenter,
-presenter {
+.presenter, presenter {
   font-weight: 300;
   font-style: italic;
   display: block;
@@ -171,8 +192,7 @@ presenter::before {
   text-transform: uppercase;
 }
 
-authors,
-author {
+.author, authors, author {
   display: inline;
   font-weight: 300;
   word-wrap: normal;
