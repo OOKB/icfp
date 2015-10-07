@@ -96,7 +96,12 @@ function fetchData(cb) {
             return {
               sessionStartTime: sessions[0].sessionStartTime,
               sessionEndTime: sessions[0].sessionEndTime,
-              sessions
+              sessions: _.map(sessions, (session) => {
+                if (session.presentations.length) {
+                  session.authors = _.flatten(_.pluck(session.presentations, 'authors'));
+                }
+                return session;
+              })
             }
           })
         });
@@ -110,7 +115,13 @@ function fetchData(cb) {
 }
 fetchData((data) => {return});
 app.get('/api', function(req, res) {
-  fetchData((data) => res.send(data));
+  if (apiData) {
+    console.log('return cached data');
+    res.send(apiData);
+  }
+  else {
+    res.send({error: true});
+  }
 });
 
 // app.get('/render', function(req, res) {
