@@ -14,11 +14,12 @@ import Presentation from './Presentation';
 
 class OralPresentations extends Component {
   render() {
-    const { sessionCode, sessionName, sessionRoom, presentations } = this.props;
+    const { sessionCode, sessionName, sessionRoom, sessionStartTime, presentations } = this.props;
     return (
       <presentation>
         <sessioncode>{ sessionCode }</sessioncode>
         <sessionname>{ sessionName }</sessionname>
+        <starttime>{ sessionStartTime }</starttime>
         <sessionroom>{ sessionRoom }</sessionroom>
         <columns>
         {
