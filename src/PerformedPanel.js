@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 
 import Presentation from './Presentation';
+import Author from './Author';
 
 // Preformed Panel
 // [Session Number (i.e. 1.1.08)] [Title of Preformed Panel]
@@ -17,13 +18,16 @@ import Presentation from './Presentation';
 
 class PerformedPanel extends Component {
   render() {
-    const { sessionCode, sessionName, sessionRoom, sessionStartTime, presentations } = this.props;
+    const { authors, sessionCode, sessionName, sessionRoom, sessionStartTime, presentations } = this.props;
     return (
       <presentation>
         <sessionCode>{ sessionCode }</sessionCode>
         <sessionName>{ sessionName }</sessionName>
         <starttime>{ sessionStartTime }</starttime>
         <sessionRoom>{ sessionRoom }</sessionRoom>
+        <authors>
+          { authors.map( item => <Author key={item.contactID} {...item} /> ) }
+        </authors>
         <columns>
         {
           presentations.map( (item, i) => {

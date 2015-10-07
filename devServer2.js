@@ -100,6 +100,9 @@ function fetchData(cb) {
                 if (session.presentations.length) {
                   session.authors = _.flatten(_.pluck(session.presentations, 'authors'));
                 }
+                else {
+                  session.authors = []
+                }
                 return session;
               })
             }
@@ -120,7 +123,7 @@ app.get('/api', function(req, res) {
     res.send(apiData);
   }
   else {
-    res.send({error: true});
+    res.send({error: true, msg: 'data not ready yet'});
   }
 });
 
