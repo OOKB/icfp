@@ -1,8 +1,12 @@
 import React from 'react';
 import { App } from './App';
 import 'isomorphic-fetch';
-import {where} from 'lodash';
+import { where, groupBy } from 'lodash';
+
 const fullUrl = '/api';
+
+const TYPE = 'sessions';
+//const TYPE = 'posters';
 
 fetch(fullUrl)
   .then(response =>
@@ -12,7 +16,6 @@ fetch(fullUrl)
     if (!response.ok) {
       return Promise.reject(json);
     }
-    const items = where(json, {sessionType: 'Poster presentations'});
-    console.log('render');
-    React.render(<App items={items}/>, document.getElementById('root'));
+
+    React.render(<App items={json[TYPE]} type={TYPE} />, document.getElementById('root'));
   });

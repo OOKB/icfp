@@ -79,7 +79,29 @@ function fetchData(cb) {
     console.log('fetch new data');
     Wreck.get(fullUrl, {json: true}, (err, response, payload) => {
       console.log('transform new data');
-      apiData = _.map(camelizeKeys(payload), fixDataItem);
+      const items = _.map(camelizeKeys(payload), fixDataItem);
+      apiData = {
+        posters: _.where(items, {sessionType: 'Poster presentations'}),
+        sessions: _.where(items, (item) => {
+          return (item.sessionType === 'Preformed Panel' || item.sessionType === 'Oral Presentations')
+        })
+      }
+      apiData.sessions = _.groupBy(apiData.sessions, 'sessionDate');
+      const days = [];
+      _.each(_.keys(apiData.sessions), (sessionDate) => {
+        days.push({
+          sessionDate,
+          timeSlots: _.map(_.groupBy(apiData.sessions[sessionDate], 'sessionStartTime'), (sessions) => {
+            return {
+              sessionStartTime: sessions[0].sessionStartTime,
+              sessionEndTime: sessions[0].sessionEndTime,
+              sessions
+            }
+          })
+        });
+      });
+      apiData.sessions = days;
+
       console.log('return new data');
       cb(apiData);
     })
