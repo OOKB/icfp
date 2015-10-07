@@ -1,4 +1,7 @@
 import React, { Component } from 'react';
+
+import Presentation from './Presentation';
+
 // Preformed Panel
 // [Session Number (i.e. 1.1.08)] [Title of Preformed Panel]
 // [time] [Location]
