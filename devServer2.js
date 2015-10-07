@@ -82,7 +82,8 @@ function fetchData(cb) {
       const items = _.map(camelizeKeys(payload), fixDataItem);
       apiData = {
         posters: _.where(items, {sessionType: 'Poster presentations'}),
-        sessions: _.where(items, (item) => {
+        //sessions: _.where(items, {sessionType: 'Oral Presentations'}),
+        sessions: _.filter(items, (item) => {
           return (item.sessionType === 'Preformed Panel' || item.sessionType === 'Oral Presentations')
         })
       }
