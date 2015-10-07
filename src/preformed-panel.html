@@ -1,0 +1,54 @@
+[Session Number (i.e. 1.1.08)] [Title of Preformed Panel]
+[time] [Location]
+[Moderator] 
+[All Presenter/Author(s)] 
+ 
+[Presentation 1 Title]
+[Presenter of Presentation 1] – should include their organization
+i.e.: Marianne Amoss, Gates Institute;
+ 
+[Presentation 2 Title]
+[Presenter of Presentation 2]
+ 
+      <panel>
+        <sessionCode>{SessionCode}</sessionCode>
+        <postertitle>{title}</postertitle>
+        <authors>
+          { authors.map( item => <Author key={item.contactID} {...item} /> ) }
+        </authors>
+      </panel>
+
+
+<day>
+  <h2>Day</h2>
+  <timeslot>
+    <h3>TimeSlot</h3>
+    <presentation> (or panel) </presentation>
+    … //list all the presentations/panels in that timeslot
+    … //order them according to their sessionID
+    <presentation> (or panel) </presentation>
+  </timeslot>
+  … //list all the time slots
+  <timeslot>
+    <presentation> (or panel) </presentation>
+    … //list all the presentations/panels in that timeslot
+    … //order them according to their sessionID
+    <presentation> (or panel) </presentation>
+  </timeslot>
+</day>
+… // list all the days (should be 3: 2015-11-10, 2015-11-11, 2015-11-12)
+<day>
+  <timeslot>
+    <presentation> (or panel) </presentation>
+    … //list all the presentations/panels in that timeslot
+    … //order them according to their sessionID
+    <presentation> (or panel) </presentation>
+  </timeslot>
+  … //list all the time slots
+  <timeslot>
+    <presentation> (or panel) </presentation>
+    … //list all the presentations/panels in that timeslot
+    … //order them according to their sessionID
+    <presentation> (or panel) </presentation>
+  </timeslot>
+</day>
