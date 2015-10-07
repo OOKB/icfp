@@ -72,11 +72,14 @@ h1, h2, h3, h4, h5, h6 {
   padding: 0;
 }
 
+postertitle, title, day, sessioname, sessiontime, sessionroom, poster-session, presentation, poster, columns, timeslot, authors, presenter {
+  display: block;
+}
+
 /** style some headlines **/
 h1 {
   font-size: 2rem;
   text-transform: uppercase;
-  display:block;
   font-weight: bold;
   /****/
   -webkit-column-span: all; /* Chrome, Safari, Opera */
@@ -87,7 +90,6 @@ h1 {
 h2,h3,h4,h5,h6,
 postertitle, title {
   font-size: 1rem;
-  display:block;
   font-weight: bold;
 }
 
@@ -131,12 +133,10 @@ day {
   margin-top:1.0833in;
   margin-bottom:1.0833in;
   page-break-before: always;
-  display: block;
 }
 
 poster-session .columns,
 poster-session columns {
-  display: block;
   margin-top: 1.2rem;
   /**/
   -webkit-column-count: 2; /* Chrome, Safari, Opera */
@@ -147,29 +147,40 @@ poster-session columns {
   column-gap: 1.5rem;
 }
 
+//presentation .columns,
+//presentation columns {
+//  -webkit-column-count: 4; /* Chrome, Safari, Opera */
+//  -moz-column-count: 4; /* Firefox */
+//  column-count: 4;
+//  -webkit-column-gap: 1.5rem; /* Chrome, Safari, Opera */
+//  -moz-column-gap: 1.5rem; /* Firefox */
+//  column-gap: 1.5rem;
+//}
+
 .time,
 sessiontime,
 timeslot > h3 {
   font-size: 2rem;
   font-weight: 100;
   color: rgba(131,48,94,1);
-  display: block;
+}
+
+timeslot > h3 {
+  margin-bottom: 2rem;
 }
 
 .location,
-sessionroom {
+poster-session sessionroom {
   text-transform: uppercase;
   font-weight: 100;
   line-height: 2.4;
   margin-bottom: 4rem;
-  display: block;
 }
 
 /** main poster block settings **/
 .poster, poster,
 .presentation, presentation {
   border-top: 1pt solid black;
-  display: block;
   font-size: 1rem;
   padding-top: 1rem;
   padding-bottom: 1.5rem;
@@ -178,6 +189,24 @@ sessionroom {
   page-break-after: auto;
   page-break-inside:avoid;
 }
+
+timeslot {
+  page-break-before: always;
+}
+
+presentation poster {
+  border-top: none;
+  padding: .5rem 0 0 2rem;
+  font-family: @arnhemStack;
+}
+
+presentation poster::before {
+  content: "— ";
+  display: block;
+  margin-left: -2rem;
+  float: left;
+}
+
 /** id and title **/
 .posterID, sessionCode {
   margin: 0 0 0 -4rem;
@@ -188,7 +217,6 @@ sessionroom {
 .presenter, presenter {
   font-weight: 300;
   font-style: italic;
-  display: block;
 }
 
 presenter::before {
@@ -213,6 +241,7 @@ author::after {
 
 author:last-child::after {
   content: "";
+  display: inline;
   margin-right: 0;
   word-wrap: normal;
 }
