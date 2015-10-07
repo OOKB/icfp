@@ -72,8 +72,12 @@ h1, h2, h3, h4, h5, h6 {
   padding: 0;
 }
 
-postertitle, title, day, sessioname, sessiontime, sessionroom, poster-session, presentation, poster, columns, timeslot, authors, presenter {
+postertitle, title, day, sessioncode, sessionname, sessiontime, sessionroom, poster-session, presentation, poster, columns, timeslot, authors, description, sessionDescription, moderator, sessionmoderator {
   display: block;
+}
+
+moderator {
+  background: red;
 }
 
 /** style some headlines **/
@@ -93,14 +97,13 @@ postertitle, title {
   font-weight: bold;
 }
 
-day > h2,
-sessionname,
-sessiontime,
-sessionroom {
-  -webkit-column-span: all; /* Chrome, Safari, Opera */
-  -moz-column-span: all; /* Firefox */
-  column-span: all;
-}
+//sessionname,
+//sessiontime,
+//sessionroom {
+//  -webkit-column-span: all; /* Chrome, Safari, Opera */
+//  -moz-column-span: all; /* Firefox */
+//  column-span: all;
+//}
 
 day > h2,
 poster-session sessionname {
@@ -138,7 +141,12 @@ day {
 poster-session .columns,
 poster-session columns {
   margin-top: 1.2rem;
-  /**/
+}
+
+poster-session .columns,
+poster-session columns,
+timeslot h3 + .columns,
+timeslot h3 + columns {
   -webkit-column-count: 2; /* Chrome, Safari, Opera */
   -moz-column-count: 2; /* Firefox */
   column-count: 2;
@@ -146,16 +154,6 @@ poster-session columns {
   -moz-column-gap: 1.5rem; /* Firefox */
   column-gap: 1.5rem;
 }
-
-//presentation .columns,
-//presentation columns {
-//  -webkit-column-count: 4; /* Chrome, Safari, Opera */
-//  -moz-column-count: 4; /* Firefox */
-//  column-count: 4;
-//  -webkit-column-gap: 1.5rem; /* Chrome, Safari, Opera */
-//  -moz-column-gap: 1.5rem; /* Firefox */
-//  column-gap: 1.5rem;
-//}
 
 .time,
 sessiontime,
@@ -190,8 +188,13 @@ poster-session sessionroom {
   page-break-inside:avoid;
 }
 
-timeslot {
-  page-break-before: always;
+//timeslot {
+//  page-break-before: always;
+//}
+
+presentation sessionroom {
+  display: inline-block;
+  padding-left: 1.1em;
 }
 
 presentation poster {
@@ -207,6 +210,10 @@ presentation poster::before {
   float: left;
 }
 
+sessionroom + authors {
+  margin: .5em 0;
+}
+
 /** id and title **/
 .posterID, sessionCode {
   margin: 0 0 0 -4rem;
@@ -214,24 +221,29 @@ presentation poster::before {
   float: left;
 }
 /** style author names **/
-.presenter, presenter {
+poster .presenter, poster presenter {
   font-weight: 300;
   font-style: italic;
+  display: block;
 }
 
-presenter::before {
+poster presenter::before {
   content: 'Presenter: ';
   font-size: .85rem;
   font-weight: normal;
   text-transform: uppercase;
 }
 
-.author, authors, author {
+.author, author {
   display: inline;
+}
+
+authors, author {
   font-weight: 300;
   word-wrap: normal;
 }
 
+sessionroom + authors presenter::after,
 author::after {
   content: "; ";
   display: inline;
@@ -246,7 +258,7 @@ author:last-child::after {
   word-wrap: normal;
 }
 
-author:first-of-type::before {
+poster author:first-of-type::before {
   content: "Co-Author(s): ";
   font-size: .85rem;
   font-weight: normal;

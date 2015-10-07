@@ -11,16 +11,18 @@ class Timeslot extends Component {
     return (
       <timeslot>
         <h3>{timeStr}</h3>
-        {
-          sessions.map( (item, i) => {
-            if (item.sessionType === 'Preformed Panel') {
-              return <PerformedPanel key={item.sessionCode} {...item} />
-            }
-            else {
-              return <OralPresentations key={item.sessionCode} {...item} />
-            }
-          })
-        }
+        <columns>
+          {
+            sessions.map( (item, i) => {
+              if (item.sessionType === 'Preformed Panel') {
+                return <PerformedPanel key={item.sessionCode} {...item} />
+              }
+              else {
+                return <OralPresentations key={item.sessionCode} {...item} />
+              }
+            })
+          }
+        </columns>
       </timeslot>
     );
   }

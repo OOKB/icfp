@@ -18,13 +18,15 @@ import Author from './Author';
 
 class PerformedPanel extends Component {
   render() {
-    const { authors, sessionCode, sessionName, sessionRoom, sessionStartTime, presentations } = this.props;
+    const { authors, sessionCode, sessionName, sessionRoom, sessionStartTime, sessionDescription, moderatorOfPanel, presentations } = this.props;
     return (
       <presentation>
         <sessionCode>{ sessionCode }</sessionCode>
         <sessionName>{ sessionName }</sessionName>
         <starttime>{ sessionStartTime }</starttime>
         <sessionRoom>{ sessionRoom }</sessionRoom>
+        <description>{ sessionDescription }</description>
+        <moderator>{ moderatorOfPanel }</moderator>
         <authors>
           { authors.map( item => <Author key={item.contactID} {...item} /> ) }
         </authors>
