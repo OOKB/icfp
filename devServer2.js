@@ -81,11 +81,11 @@ function fetchData(cb) {
       console.log('transform new data');
       const items = _.map(camelizeKeys(payload), fixDataItem);
       apiData = {
-        posters: _.where(items, {sessionType: 'Poster presentations'}),
-        //sessions: _.where(items, {sessionType: 'Oral Presentations'}),
-        sessions: _.filter(items, (item) => {
-          return (item.sessionType === 'Preformed Panel' || item.sessionType === 'Oral Presentations')
-        })
+        posters: _.remove(items, {sessionType: 'Poster presentations'}),
+        sessions: items,
+        // sessions: _.filter(items, (item) => {
+        //   return (item.sessionType === 'Oral Presentations' || item.sessionType === 'Preformed Panel')
+        // })
       }
       apiData.sessions = _.groupBy(apiData.sessions, 'sessionDate');
       const days = [];
