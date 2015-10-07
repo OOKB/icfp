@@ -91,18 +91,20 @@ postertitle, title {
   font-weight: bold;
 }
 
-sessionname {
-  font-family: @leagueStack;
-  font-size: 3rem;
-  font-weight: 400;
-}
-
+day > h2,
 sessionname,
 sessiontime,
 sessionroom {
   -webkit-column-span: all; /* Chrome, Safari, Opera */
   -moz-column-span: all; /* Firefox */
   column-span: all;
+}
+
+day > h2,
+poster-session sessionname {
+  font-family: @leagueStack;
+  font-size: 3rem;
+  font-weight: 400;
 }
 
 poster-session:nth-of-type(1) sessionname,
@@ -124,14 +126,16 @@ poster-session:nth-of-type(5) sessionname {
 
 /** style main poster session times **/
 .poster-session,
-poster-session {
+poster-session,
+day {
   margin-top:1.0833in;
   margin-bottom:1.0833in;
   page-break-before: always;
   display: block;
 }
 
-.columns, columns {
+poster-session .columns,
+poster-session columns {
   display: block;
   margin-top: 1.2rem;
   /**/
@@ -144,7 +148,8 @@ poster-session {
 }
 
 .time,
-sessiontime {
+sessiontime,
+timeslot > h3 {
   font-size: 2rem;
   font-weight: 100;
   color: rgba(131,48,94,1);
@@ -161,7 +166,8 @@ sessionroom {
 }
 
 /** main poster block settings **/
-.poster, poster {
+.poster, poster,
+.presentation, presentation {
   border-top: 1pt solid black;
   display: block;
   font-size: 1rem;
@@ -219,3 +225,7 @@ author:first-of-type::before {
   word-wrap: normal;
 }
 
+/** presentation / abstract / panel additions **/
+presentation sessionname {
+  font-weight: bold;
+}
