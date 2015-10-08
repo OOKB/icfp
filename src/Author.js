@@ -1,37 +1,31 @@
 import React, { Component } from 'react';
 
-class Presenter extends Component {
-  render() {
-    const { children } = this.props;
-    return <presenter className="presenter">{ children }</presenter>
-  }
-}
-
-class CoAuthor extends Component {
-  render() {
-    const { children } = this.props;
-    return <author className="co-author">{ children }</author>
-  }
-}
-
 class Author extends Component {
   render() {
     const { firstname, lastname, company, presenter, ...rest } = this.props;
-
-    let AuthorTag = CoAuthor;
-    if (presenter) {
-      AuthorTag = Presenter;
+    let { tagName } = this.props;
+    // If no tagName defined we base it off the presenter value.
+    if (!tagName) {
+      if (presenter) {
+        tagName = 'presenter';
+      }
+      else {
+        tagName = 'author';
+      }
     }
+
     const fullName = `${firstname} ${lastname}`;
     const separator = ', ';
-
-  return (
-      <AuthorTag>
+    // Define the insides of the component.
+    const DetailsEl =
+      <div>
         <fullname>{fullName}</fullname>
         {separator}
         <company>{company}</company>
-      </AuthorTag>
-    );
+      </div>
+
+    // Use function call instead of jsx to use computed tag name.
+    return React.createElement(tagName, rest, DetailsEl);
   }
 }
 

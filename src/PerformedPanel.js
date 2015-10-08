@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 
 import Presentation from './Presentation';
-import Moderator from './Moderator';
 import Author from './Author';
 
 class PerformedPanel extends Component {
@@ -28,7 +27,7 @@ class PerformedPanel extends Component {
         { DescriptionEl }
 
         { sessionChairs.map( item => (
-          <Moderator key={item.iD} {...item} />
+          <Author key={item.iD} tagName="moderator" {...item} />
         ))}
 
         { presentations.map( item => (
