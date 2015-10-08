@@ -72,12 +72,8 @@ h1, h2, h3, h4, h5, h6 {
   padding: 0;
 }
 
-postertitle, title, day, sessioncode, sessionname, sessiontime, sessionroom, poster-session, presentation, poster, columns, timeslot, authors, description, sessionDescription, moderator, sessionmoderator {
+postertitle, title, day, sessioncode, sessionname, sessiontime, sessionroom, poster-session, presentation, poster, panel, columns, timeslot, authors, description, sessionDescription, moderator, sessionmoderator {
   display: block;
-}
-
-moderator {
-  background: red;
 }
 
 /** style some headlines **/
@@ -179,7 +175,8 @@ poster-session sessionroom {
 
 /** main poster block settings **/
 .poster, poster,
-.presentation, presentation {
+.presentation, presentation,
+.panel, panel {
   border-top: 1pt solid black;
   font-size: 1rem;
   padding-top: 1rem;
@@ -190,21 +187,33 @@ poster-session sessionroom {
   page-break-inside:avoid;
 }
 
-//timeslot {
-//  page-break-before: always;
-//}
+/** id and title **/
+.posterID, sessionCode {
+  margin: 0 0 0 -4rem;
+  font-weight: 100;
+  float: left;
+}
 
-presentation sessionroom {
+
+
+
+
+
+/** Presentation/Panel settings **/
+presentation sessionroom,
+panel sessionroom {
   display: inline-block;
   padding-left: 1.1em;
 }
 
+panel poster,
 presentation poster {
   border-top: none;
   padding: .5rem 0 0 2rem;
   font-family: @arnhemStack;
 }
 
+panel poster::before,
 presentation poster::before {
   content: "— ";
   display: block;
@@ -212,18 +221,10 @@ presentation poster::before {
   float: left;
 }
 
-sessionroom + authors {
-  margin: .5em 0;
-}
 
-/** id and title **/
-.posterID, sessionCode {
-  margin: 0 0 0 -4rem;
-  font-weight: 100;
-  float: left;
-}
 /** style author names **/
-poster .presenter, poster presenter {
+poster .presenter,
+poster presenter {
   font-weight: 300;
   font-style: italic;
   display: block;
@@ -245,7 +246,6 @@ authors, author {
   word-wrap: normal;
 }
 
-sessionroom + authors presenter::after,
 author::after {
   content: "; ";
   display: inline;
@@ -269,6 +269,7 @@ poster author:first-of-type::before {
 }
 
 /** presentation / abstract / panel additions **/
+panel sessionname,
 presentation sessionname {
   font-weight: bold;
 }

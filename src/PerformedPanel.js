@@ -23,12 +23,11 @@ class PerformedPanel extends Component {
     const timeStr = `${sessionStartTime} - ${sessionEndTime}`;
 
     return (
-      <presentation>
+      <panel>
         <sessionCode>{ sessionCode }</sessionCode>
         <sessionName>{ sessionName }</sessionName>
         <starttime>{ timeStr }</starttime>
         <sessionRoom>{ sessionRoom }</sessionRoom>
-        <description dangerouslySetInnerHTML={{__html: sessionDescription}} />
         <moderator>{ moderatorOfPanel }</moderator>
 
         {
@@ -39,6 +38,8 @@ class PerformedPanel extends Component {
           })
         }
 
+        <description dangerouslySetInnerHTML={{__html: sessionDescription}} />
+
         {
           presentations.map( (item, i) => {
             return (
@@ -47,7 +48,7 @@ class PerformedPanel extends Component {
           })
         }
 
-      </presentation>
+      </panel>
     )
   }
 }
