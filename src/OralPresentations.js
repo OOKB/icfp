@@ -15,16 +15,14 @@ import Author from './Author';
 
 class OralPresentations extends Component {
   render() {
-    const { authors, sessionCode, sessionName, sessionRoom, sessionStartTime, presentations } = this.props;
+    const { sessionCode, sessionName, sessionRoom, sessionStartTime, presentations } = this.props;
     return (
       <presentation>
         <sessioncode>{ sessionCode }</sessioncode>
         <sessionname>{ sessionName }</sessionname>
         <starttime>{ sessionStartTime }</starttime>
         <sessionroom>{ sessionRoom }</sessionroom>
-        <authors>
-          { authors.map( item => <Author key={item.contactID} {...item} /> ) }
-        </authors>
+
         <columns>
         {
           presentations.map( (item, i) => {
