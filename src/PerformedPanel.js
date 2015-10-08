@@ -18,12 +18,14 @@ import Author from './Author';
 
 class PerformedPanel extends Component {
   render() {
-    const { sessionCode, sessionName, sessionRoom, sessionStartTime, sessionDescription, moderatorOfPanel, presentations } = this.props;
+    const { sessionCode, sessionName, sessionRoom, sessionStartTime, sessionEndTime, sessionDescription, moderatorOfPanel, presentations } = this.props;
+    const timeStr = `${sessionStartTime} - ${sessionEndTime}`;
+
     return (
       <presentation>
         <sessionCode>{ sessionCode }</sessionCode>
         <sessionName>{ sessionName }</sessionName>
-        <starttime>{ sessionStartTime }</starttime>
+        <starttime>{ timeStr }</starttime>
         <sessionRoom>{ sessionRoom }</sessionRoom>
         <description>{ sessionDescription }</description>
         <moderator>{ moderatorOfPanel }</moderator>

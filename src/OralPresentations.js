@@ -15,12 +15,14 @@ import Author from './Author';
 
 class OralPresentations extends Component {
   render() {
-    const { sessionCode, sessionName, sessionRoom, sessionStartTime, presentations } = this.props;
+    const { sessionCode, sessionName, sessionRoom, sessionStartTime, sessionEndTime, presentations } = this.props;
+    const timeStr = `${sessionStartTime} - ${sessionEndTime}`;
+
     return (
       <presentation>
         <sessioncode>{ sessionCode }</sessioncode>
         <sessionname>{ sessionName }</sessionname>
-        <starttime>{ sessionStartTime }</starttime>
+        <starttime>{ timeStr }</starttime>
         <sessionroom>{ sessionRoom }</sessionroom>
 
         {
