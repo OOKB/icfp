@@ -7,8 +7,7 @@ import Author from './Author';
 class PerformedPanel extends Component {
   render() {
     const { sessionCode, sessionName, sessionRoom, sessionStartTime, sessionEndTime,
-            sessionDescription, moderatorOfPanel, sessionChairs, presentations,
-            sessionType
+            sessionDescription, sessionChairs, presentations, sessionType
           } = this.props;
     const timeStr = `${sessionStartTime} - ${sessionEndTime}`;
 
@@ -16,12 +15,6 @@ class PerformedPanel extends Component {
     if (sessionDescription) {
       DescriptionEl =
         <description dangerouslySetInnerHTML={{__html: sessionDescription}} />
-    }
-    let ModeratorEl = false;
-
-    // I don't think this is the place for this.
-    if (moderatorOfPanel) {
-      ModeratorEl = <moderator>{ moderatorOfPanel }</moderator>
     }
 
     return (
@@ -33,7 +26,6 @@ class PerformedPanel extends Component {
         <sessionroom>{ sessionRoom }</sessionroom>
 
         { DescriptionEl }
-        { ModeratorEl }
 
         { sessionChairs.map( item => (
           <Moderator key={item.iD} {...item} />
