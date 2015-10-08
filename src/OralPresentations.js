@@ -23,7 +23,6 @@ class OralPresentations extends Component {
         <starttime>{ sessionStartTime }</starttime>
         <sessionroom>{ sessionRoom }</sessionroom>
 
-        <columns>
         {
           presentations.map( (item, i) => {
             return (
@@ -31,7 +30,7 @@ class OralPresentations extends Component {
             )
           })
         }
-        </columns>
+
       </presentation>
     )
   }

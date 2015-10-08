@@ -18,7 +18,7 @@ import Author from './Author';
 
 class PerformedPanel extends Component {
   render() {
-    const { authors, sessionCode, sessionName, sessionRoom, sessionStartTime, sessionDescription, moderatorOfPanel, presentations } = this.props;
+    const { sessionCode, sessionName, sessionRoom, sessionStartTime, sessionDescription, moderatorOfPanel, presentations } = this.props;
     return (
       <presentation>
         <sessionCode>{ sessionCode }</sessionCode>
@@ -27,10 +27,7 @@ class PerformedPanel extends Component {
         <sessionRoom>{ sessionRoom }</sessionRoom>
         <description>{ sessionDescription }</description>
         <moderator>{ moderatorOfPanel }</moderator>
-        <authors>
-          { authors.map( item => <Author key={item.contactID} {...item} /> ) }
-        </authors>
-        <columns>
+
         {
           presentations.map( (item, i) => {
             return (
@@ -38,7 +35,7 @@ class PerformedPanel extends Component {
             )
           })
         }
-        </columns>
+
       </presentation>
     )
   }
