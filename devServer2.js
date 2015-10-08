@@ -1,14 +1,15 @@
 import path from 'path';
 import Express from 'express';
-import _ from 'lodash';
 import webpack from 'webpack';
 import webpackDevMiddleware from 'webpack-dev-middleware';
 import webpackHotMiddleware from 'webpack-hot-middleware';
 import webpackConfig from './webpack.config.dev';
 
+import _ from 'lodash';
 import Wreck from 'wreck';
 import {camelizeKeys} from 'humps';
 import {titleize} from 'inflection';
+import sanitizeHtml from 'sanitize-html'
 
 // import { App } from './src/App';
 
@@ -97,11 +98,8 @@ function fetchData(cb) {
               sessionStartTime: sessions[0].sessionStartTime,
               sessionEndTime: sessions[0].sessionEndTime,
               sessions: _.map(sessions, (session) => {
-                if (session.presentations.length) {
-                  session.authors = _.flatten(_.pluck(session.presentations, 'authors'));
-                }
-                else {
-                  session.authors = []
+                if (session.sessionDescription) {
+                  session.sessionDescription = sanitizeHtml(session.sessionDescription);
                 }
                 return session;
               })
