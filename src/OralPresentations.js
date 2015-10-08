@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 
 import Presentation from './Presentation';
+import Moderator from './Moderator';
 import Author from './Author';
 
 // Individual Abstracts
@@ -15,7 +16,7 @@ import Author from './Author';
 
 class OralPresentations extends Component {
   render() {
-    const { sessionCode, sessionName, sessionRoom, sessionStartTime, sessionEndTime, presentations } = this.props;
+    const { sessionCode, sessionName, sessionRoom, sessionStartTime, sessionEndTime, sessionChairs, presentations } = this.props;
     const timeStr = `${sessionStartTime} - ${sessionEndTime}`;
 
     return (
@@ -24,6 +25,14 @@ class OralPresentations extends Component {
         <sessionname>{ sessionName }</sessionname>
         <starttime>{ timeStr }</starttime>
         <sessionroom>{ sessionRoom }</sessionroom>
+
+        {
+          sessionChairs.map( (item, i) => {
+            return (
+              <Moderator key={item.iD} {...item} />
+            )
+          })
+        }
 
         {
           presentations.map( (item, i) => {

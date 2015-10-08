@@ -17,4 +17,4 @@ class Moderator extends Component {
   }
 }
 
-export default Author;
+export default Moderator;

@@ -99,7 +99,9 @@ function fetchData(cb) {
               sessionEndTime: sessions[0].sessionEndTime,
               sessions: _.map(sessions, (session) => {
                 if (session.sessionDescription) {
-                  session.sessionDescription = sanitizeHtml(session.sessionDescription);
+                  session.sessionDescription = sanitizeHtml(session.sessionDescription, {
+                    allowedTags: [ 'b', 'i', 'em', 'strong', 'p', 'ul', 'li']
+                  });
                 }
                 return session;
               })

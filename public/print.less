@@ -132,10 +132,15 @@ poster-session:nth-of-type(5) sessionname {
 /** style main poster session times **/
 .poster-session,
 poster-session,
-day {
+day,
+timeslot {
   margin-top:1.0833in;
   margin-bottom:1.0833in;
   page-break-before: always;
+}
+
+h2 + timeslot {
+  margin-top: 0;
 }
 
 poster-session .columns,
@@ -143,10 +148,7 @@ poster-session columns {
   margin-top: 1.2rem;
 }
 
-poster-session .columns,
-poster-session columns,
-timeslot h3 + .columns,
-timeslot h3 + columns {
+.columns, columns {
   -webkit-column-count: 2; /* Chrome, Safari, Opera */
   -moz-column-count: 2; /* Firefox */
   column-count: 2;

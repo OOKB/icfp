@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 
 import Presentation from './Presentation';
+import Moderator from './Moderator';
 import Author from './Author';
 
 // Preformed Panel
@@ -18,7 +19,7 @@ import Author from './Author';
 
 class PerformedPanel extends Component {
   render() {
-    const { sessionCode, sessionName, sessionRoom, sessionStartTime, sessionEndTime, sessionDescription, moderatorOfPanel, presentations } = this.props;
+    const { sessionCode, sessionName, sessionRoom, sessionStartTime, sessionEndTime, sessionDescription, moderatorOfPanel, sessionChairs, presentations } = this.props;
     const timeStr = `${sessionStartTime} - ${sessionEndTime}`;
 
     return (
@@ -29,6 +30,14 @@ class PerformedPanel extends Component {
         <sessionRoom>{ sessionRoom }</sessionRoom>
         <description dangerouslySetInnerHTML={{__html: sessionDescription}} />
         <moderator>{ moderatorOfPanel }</moderator>
+
+        {
+          sessionChairs.map( (item, i) => {
+            return (
+              <Moderator key={item.iD} {...item} />
+            )
+          })
+        }
 
         {
           presentations.map( (item, i) => {
