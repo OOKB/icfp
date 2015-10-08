@@ -4,6 +4,52 @@ import Presentation from './Presentation';
 import Moderator from './Moderator';
 import Author from './Author';
 
+class PerformedPanel extends Component {
+  render() {
+    const { sessionCode, sessionName, sessionRoom, sessionStartTime, sessionEndTime,
+            sessionDescription, moderatorOfPanel, sessionChairs, presentations,
+            sessionType
+          } = this.props;
+    const timeStr = `${sessionStartTime} - ${sessionEndTime}`;
+
+    let DescriptionEl = false;
+    if (sessionDescription) {
+      DescriptionEl =
+        <description dangerouslySetInnerHTML={{__html: sessionDescription}} />
+    }
+    let ModeratorEl = false;
+
+    // I don't think this is the place for this.
+    if (moderatorOfPanel) {
+      ModeratorEl = <moderator>{ moderatorOfPanel }</moderator>
+    }
+
+    return (
+      <presentation>
+        <span className="session-type">{ sessionType }</span>
+        <sessioncode>{ sessionCode }</sessioncode>
+        <sessionname>{ sessionName }</sessionname>
+        <starttime>{ timeStr }</starttime>
+        <sessionroom>{ sessionRoom }</sessionroom>
+
+        { DescriptionEl }
+        { ModeratorEl }
+
+        { sessionChairs.map( item => (
+          <Moderator key={item.iD} {...item} />
+        ))}
+
+        { presentations.map( item => (
+          <Presentation key={item.iD} {...item} />
+        ))}
+
+      </presentation>
+    )
+  }
+}
+
+export default PerformedPanel;
+
 // Preformed Panel
 // [Session Number (i.e. 1.1.08)] [Title of Preformed Panel]
 // [time] [Location]
@@ -17,40 +63,14 @@ import Author from './Author';
 // [Presentation 2 Title]
 // [Presenter of Presentation 2]
 
-class PerformedPanel extends Component {
-  render() {
-    const { sessionCode, sessionName, sessionRoom, sessionStartTime, sessionEndTime, sessionDescription, moderatorOfPanel, sessionChairs, presentations } = this.props;
-    const timeStr = `${sessionStartTime} - ${sessionEndTime}`;
+// - - - - -
 
-    return (
-      <panel>
-        <sessionCode>{ sessionCode }</sessionCode>
-        <sessionName>{ sessionName }</sessionName>
-        <starttime>{ timeStr }</starttime>
-        <sessionRoom>{ sessionRoom }</sessionRoom>
-        <moderator>{ moderatorOfPanel }</moderator>
+// Individual Abstracts
+// [Session Number (i.e. 1.1.08)] [Title of Session]
+// [time] [Location]
 
-        {
-          sessionChairs.map( (item, i) => {
-            return (
-              <Moderator key={item.iD} {...item} />
-            )
-          })
-        }
+// [Co-Moderator], [Co-moderator]
+// [All Author(s)], [Author’s Organization] – repeat per number of co-authors
 
-        <description dangerouslySetInnerHTML={{__html: sessionDescription}} />
 
-        {
-          presentations.map( (item, i) => {
-            return (
-              <Presentation key={item.iD} {...item} />
-            )
-          })
-        }
-
-      </panel>
-    )
-  }
-}
-
-export default PerformedPanel;
+// Repeat per number of abstracts

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 import PerformedPanel from './PerformedPanel';
-import OralPresentations from './OralPresentations';
+// import OralPresentations from './OralPresentations';
 
 class Timeslot extends Component {
   render() {
@@ -12,16 +12,9 @@ class Timeslot extends Component {
       <timeslot>
         <h3>{timeStr}</h3>
         <columns>
-          {
-            sessions.map( (item, i) => {
-              if (item.sessionType === 'Preformed Panel') {
-                return <PerformedPanel key={item.sessionCode} {...item} />
-              }
-              else {
-                return <OralPresentations key={item.sessionCode} {...item} />
-              }
-            })
-          }
+          { sessions.map( item => (
+            <PerformedPanel key={item.sessionCode} {...item} />
+          ))}
         </columns>
       </timeslot>
     );
