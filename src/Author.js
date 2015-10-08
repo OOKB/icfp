@@ -18,11 +18,11 @@ class Author extends Component {
     const separator = ', ';
     // Define the insides of the component.
     const DetailsEl =
-      <div>
+      <person>
         <fullname>{fullName}</fullname>
         {separator}
         <company>{company}</company>
-      </div>
+      </person>
 
     // Use function call instead of jsx to use computed tag name.
     return React.createElement(tagName, rest, DetailsEl);
