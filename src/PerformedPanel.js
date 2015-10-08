@@ -21,13 +21,17 @@ class PerformedPanel extends Component {
     const { sessionCode, sessionName, sessionRoom, sessionStartTime, sessionEndTime, sessionDescription, moderatorOfPanel, presentations } = this.props;
     const timeStr = `${sessionStartTime} - ${sessionEndTime}`;
 
+    function createMarkup() {
+      return {__html: `${ sessionDescription }`}
+    }
+
     return (
       <presentation>
         <sessionCode>{ sessionCode }</sessionCode>
         <sessionName>{ sessionName }</sessionName>
         <starttime>{ timeStr }</starttime>
         <sessionRoom>{ sessionRoom }</sessionRoom>
-        <description>{ sessionDescription }</description>
+        <description dangerouslySetInnerHTML={createMarkup()} />
         <moderator>{ moderatorOfPanel }</moderator>
 
         {
