@@ -12,8 +12,8 @@ class Presentation extends Component {
         <p>At-a-glance</p>
         {
           timeSlots.map( (item) => {
-            const key = item.sessionStartTime+item.sessionEndTime;
-            return <AtAGlance key={key} {...item} />
+            const key = item.sessionStartTime + item.sessionEndTime;
+            return <AtAGlance key={key} {...item} />;
           })
         }
 
@@ -21,8 +21,8 @@ class Presentation extends Component {
         <p>Full Sessions listing</p>
         {
           timeSlots.map( (item) => {
-            const key = item.sessionStartTime+item.sessionEndTime;
-            return <TimeSlot key={key} {...item} />
+            const key = item.sessionStartTime + item.sessionEndTime;
+            return <TimeSlot key={key} {...item} />;
           })
         }
       </day>

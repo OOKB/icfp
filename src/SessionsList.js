@@ -11,7 +11,7 @@ class SessionsList extends Component {
         <sessionname><strong>{ sessionName }</strong></sessionname>
         <sessionroom>{ sessionRoom }</sessionroom>
       </li>
-    )
+    );
   }
 }
 
