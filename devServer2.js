@@ -1,5 +1,4 @@
-import path from 'path';
-import Express from 'express';
+import express from 'express';
 import webpack from 'webpack';
 import webpackDevMiddleware from 'webpack-dev-middleware';
 import webpackHotMiddleware from 'webpack-hot-middleware';
@@ -9,34 +8,32 @@ import _ from 'lodash';
 import Wreck from 'wreck';
 import {camelizeKeys} from 'humps';
 import {titleize} from 'inflection';
-import sanitizeHtml from 'sanitize-html'
+import sanitizeHtml from 'sanitize-html';
 
 // import { App } from './src/App';
 
-const app = Express();
+const app = express();
 const port = 3000;
 
 const compiler = webpack(webpackConfig);
 
 app.use(webpackDevMiddleware(compiler, {
   noInfo: true,
-  publicPath: webpackConfig.output.publicPath
+  publicPath: webpackConfig.output.publicPath,
 }));
 
 app.use(webpackHotMiddleware(compiler));
 
-app.use(Express.static('public'));
+app.use(express.static('public'));
 
 let apiData = null;
-let authorList = [];
+const authorList = [];
 
 function doTitleize(str) {
   if (str === str.toUpperCase() || str.toLowerCase()) {
     return titleize(str);
   }
-  else {
-    return str;
-  }
+  return str;
 }
 
 function fixAuthor({firstname, lastname, company}) {
@@ -49,7 +46,7 @@ function fixAuthor({firstname, lastname, company}) {
     firstname: doTitleize(firstname),
     lastname: doTitleize(lastname),
     // ...rest
-  }
+  };
   authorList.push(auth);
   return auth;
 }
@@ -59,14 +56,14 @@ function fixDataItem(item) {
     const description = {};
     _.each(presentation.description, desc =>
       description[desc.fieldLabel.toLowerCase()] = desc.fieldValue
-    )
+    );
     presentation.description = camelizeKeys(description);
     if (presentation.description.title) {
       presentation.description.title = doTitleize(presentation.description.title);
     }
     presentation.authors = presentation.authors.map(fixAuthor);
     if (presentation.authors.length > 1 && presentation.authors[0].presenter !== 1) {
-      const presenter = _.remove(presentation.authors, {presenter: 1})
+      const presenter = _.remove(presentation.authors, {presenter: 1});
       presentation.authors = presenter.concat(presentation.authors);
     }
     return presentation;
@@ -75,13 +72,12 @@ function fixDataItem(item) {
   return item;
 }
 
-function fetchData(cb) {
+function fetchData(callback) {
   var fullUrl = 'http://www.xcdsystem.com/icfp/admin/program.json';
   if (apiData) {
     console.log('return cached data');
-    cb(apiData);
-  }
-  else {
+    callback(apiData);
+  } else {
     console.log('fetch new data');
     Wreck.get(fullUrl, {json: true}, (err, response, payload) => {
       console.log('transform new data');
@@ -92,7 +88,7 @@ function fetchData(cb) {
         // sessions: _.filter(items, (item) => {
         //   return (item.sessionType === 'Oral Presentations' || item.sessionType === 'Preformed Panel')
         // })
-      }
+      };
       apiData.sessions = _.groupBy(apiData.sessions, 'sessionDate');
       const days = [];
       _.each(_.keys(apiData.sessions), (sessionDate) => {
@@ -105,29 +101,28 @@ function fetchData(cb) {
               sessions: _.map(sessions, (session) => {
                 if (session.sessionDescription) {
                   session.sessionDescription = sanitizeHtml(session.sessionDescription, {
-                    allowedTags: [ 'b', 'i', 'em', 'strong', 'p', 'ul', 'li']
+                    allowedTags: [ 'b', 'i', 'em', 'strong', 'p', 'ul', 'li'],
                   });
                 }
                 return session;
-              })
-            }
-          })
+              }),
+            };
+          }),
         });
       });
       apiData.sessions = days;
 
       console.log('return new data');
-      cb(apiData);
-    })
+      callback(apiData);
+    });
   }
 }
-fetchData((data) => {return});
-app.get('/api', function(req, res) {
+fetchData(() => {return;});
+app.get('/api', (req, res) => {
   if (apiData) {
     console.log('return cached data');
     res.send(apiData);
-  }
-  else {
+  } else {
     res.send({error: true, msg: 'data not ready yet'});
   }
 });
@@ -139,12 +134,10 @@ app.get('/api', function(req, res) {
 //   })
 // });
 
-app.listen(port, 'localhost', function (err) {
+app.listen(port, 'localhost', (err) => {
   if (err) {
     console.log(err);
     return;
   }
-  else {
-    console.log('Listening at http://localhost:'+port);
-  }
+  console.log('Listening at http://localhost:'+port);
 });
