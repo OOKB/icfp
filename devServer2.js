@@ -28,6 +28,7 @@ app.use(webpackHotMiddleware(compiler));
 app.use(Express.static('public'));
 
 let apiData = null;
+let authorList = [];
 
 function doTitleize(str) {
   if (str === str.toUpperCase() || str.toLowerCase()) {
@@ -36,6 +37,21 @@ function doTitleize(str) {
   else {
     return str;
   }
+}
+
+function fixAuthor({firstname, lastname, company}) {
+  let companyStr = company;
+  if (company.split(' ').length > 1) {
+    companyStr = doTitleize(company);
+  }
+  const auth = {
+    company: companyStr,
+    firstname: doTitleize(firstname),
+    lastname: doTitleize(lastname),
+    // ...rest
+  }
+  authorList.push(auth);
+  return auth;
 }
 
 function fixDataItem(item) {
@@ -48,25 +64,14 @@ function fixDataItem(item) {
     if (presentation.description.title) {
       presentation.description.title = doTitleize(presentation.description.title);
     }
-    presentation.authors = presentation.authors.map((author) => {
-      const { firstname, lastname, company, ...rest } = author;
-      let companyStr = company;
-      if (company.split(' ').length > 1) {
-        companyStr = doTitleize(company);
-      }
-      return {
-        company: companyStr,
-        firstname: doTitleize(firstname),
-        lastname: doTitleize(lastname),
-        ...rest
-      }
-    });
+    presentation.authors = presentation.authors.map(fixAuthor);
     if (presentation.authors.length > 1 && presentation.authors[0].presenter !== 1) {
       const presenter = _.remove(presentation.authors, {presenter: 1})
       presentation.authors = presenter.concat(presentation.authors);
     }
     return presentation;
-  })
+  });
+  item.sessionChairs = item.sessionChairs.map(fixAuthor);
   return item;
 }
 
