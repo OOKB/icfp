@@ -6,10 +6,9 @@ class SessionsList extends Component {
     const timeStr = `${sessionStartTime} - ${sessionEndTime}`;
 
     return (
-      <li class="item presentation">
+      <li className="item presentation">
         <sessioncode>{ sessionCode }</sessioncode>
-        <sessionname>{ sessionName }</sessionname>
-        <starttime>{ timeStr }</starttime>
+        <sessionname><strong>{ sessionName }</strong></sessionname>
         <sessionroom>{ sessionRoom }</sessionroom>
       </li>
     )
