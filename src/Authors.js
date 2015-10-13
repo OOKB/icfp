@@ -5,7 +5,7 @@ import Author from './Author';
 
 class Authors extends Component {
   render() {
-    const { authors } = this.props;
+    const { authors } = this.props.route;
 
     return (
       <authors>
@@ -15,7 +15,7 @@ class Authors extends Component {
   }
 }
 Authors.propTypes = {
-  authors: PropTypes.array.isRequired,
+  route: PropTypes.object.isRequired,
 };
 
 export default Authors;
