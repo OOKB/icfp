@@ -62,12 +62,13 @@ function fixAuthor({firstname, lastname, company, presenter}) {
 
 function fixPresentation({orderof, description, authors, ...rest}, i, {sessionType, sessionCode}) {
   const presentation = {...rest, description: {}};
+  presentation.authors = authors.map(fixAuthor);
   // Poster authors.
   if (sessionType === 'Poster presentations') {
     presentation.sessionCode = sessionCode.toString() + '.' + orderof.toString();
-    _.each(authors, author => addAuthor('Poster ' + presentation.sessionCode)(author));
+    _.each(presentation.authors, author => addAuthor('Poster ' + presentation.sessionCode)(author));
   } else {
-    _.each(authors, author => addAuthor(sessionCode)(author));
+    _.each(presentation.authors, author => addAuthor(sessionCode)(author));
   }
   // if (description && description.Title) {
   //   presentation.description = {title: doTitleize(description.Title)};
@@ -80,7 +81,6 @@ function fixPresentation({orderof, description, authors, ...rest}, i, {sessionTy
   //   presentation.description.title = doTitleize(presentation.description.title);
   // }
   presentation.description = _.pick(presentation.description, 'title');
-  presentation.authors = authors.map(fixAuthor);
   if (presentation.authors.length > 1 && presentation.authors[0].presenter !== 1) {
     const presenter = _.remove(presentation.authors, {presenter: 1});
     presentation.authors = presenter.concat(presentation.authors);
