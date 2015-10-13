@@ -100,14 +100,14 @@ poster-session columns {
   margin-top: 1.2rem;
 }
 
-//.columns, columns {
-//  -webkit-column-count: 2; /* Chrome, Safari, Opera */
-//  -moz-column-count: 2; /* Firefox */
-//  column-count: 2;
-//  -webkit-column-gap: 1.5rem; /* Chrome, Safari, Opera */
-//  -moz-column-gap: 1.5rem; /* Firefox */
-//  column-gap: 1.5rem;
-//}
+.columns, columns {
+  -webkit-column-count: 2; /* Chrome, Safari, Opera */
+  -moz-column-count: 2; /* Firefox */
+  column-count: 2;
+  -webkit-column-gap: 1.5rem; /* Chrome, Safari, Opera */
+  -moz-column-gap: 1.5rem; /* Firefox */
+  column-gap: 1.5rem;
+}
 
 .time,
 sessiontime,
@@ -151,16 +151,12 @@ poster-session sessionroom {
 }
 
 
-
-
-
-
 /** Presentation/Panel settings **/
-//presentation sessionroom,
-//panel sessionroom {
-//  display: inline-block;
-//  padding-left: 1.1em;
-//}
+presentation sessionroom,
+panel sessionroom {
+  display: inline-block;
+  padding-left: 1.1em;
+}
 
 panel poster,
 presentation poster {
@@ -224,6 +220,10 @@ poster author:first-of-type::before {
   word-wrap: normal;
 }
 
+presentaion moderator::before {
+}
+
+
 /** presentation / abstract / panel additions **/
 panel sessionname,
 presentation sessionname {
@@ -235,9 +235,6 @@ presentation .session-type {
 }
 
 
-
-
-
 /** At A Glance Additions */
 ataglance { display: block; }
 
@@ -247,8 +244,6 @@ ataglance .sessions-list,
 ataglance .presentation {
   padding-left: 0;
 }
-
-
 
 
 
