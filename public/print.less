@@ -91,6 +91,10 @@ timeslot {
   page-break-before: always;
 }
 
+timeslot h3 {
+  page-break-after: always;
+}
+
 h2 + timeslot {
   margin-top: 0;
 }
@@ -219,12 +223,12 @@ moderator:first-of-type::before {
   content: "Moderator(s): ";
 }
 
-presentation .meta-data sessionroom::before {
+presentation sessionroom::before {
   content: 'Location: ';
 }
 
 moderator:first-of-type::before,
-presentation .meta-data sessionroom::before {
+presentation sessionroom::before {
   display: inline-block;
   margin-top: .5em;
   padding-right: .3em;
@@ -232,7 +236,7 @@ presentation .meta-data sessionroom::before {
 
 poster author:first-of-type::before,
 moderator:first-of-type::before,
-presentation .meta-data sessionroom::before {
+presentation sessionroom::before {
   font-size: .85rem;
   font-weight: bold;
   text-transform: uppercase;
@@ -247,7 +251,7 @@ presentation sessionname {
 }
 
 presentation .session-type {
-  display: none;
+  font-weight: 100;
 }
 
 presentation::after {

@@ -18,10 +18,10 @@ class PerformedPanel extends Component {
 
     return (
       <presentation>
-        <span className="session-type">{ sessionType }</span>
+        {/*<span className="session-type">{ sessionType }</span>*/}
         <sessioncode>{ sessionCode }</sessioncode>
         <sessionname>{ sessionName }</sessionname>
-        <starttime>{ timeStr }</starttime>
+        {/*<starttime>{ timeStr }</starttime>*/}
         <sessionroom>{ sessionRoom }</sessionroom>
 
         { sessionChairs.map( item => (
