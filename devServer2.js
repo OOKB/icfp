@@ -36,12 +36,13 @@ function doTitleize(str) {
   return str;
 }
 function addAuthor(sessionCode) {
-  return ({firstname, lastname}) => {
+  return ({firstname, lastname, presenter}) => {
     const id = firstname + lastname;
+    const sessCode = presenter ? `<strong>${sessionCode}</strong>` : sessionCode;
     if (authorIndex[id]) {
-      authorIndex[id].sessionCodes.push(sessionCode);
+      authorIndex[id].sessionCodes.push(sessCode);
     } else {
-      authorIndex[id] = {firstname, lastname, sessionCodes: [sessionCode]};
+      authorIndex[id] = {firstname, lastname, sessionCodes: [sessCode]};
     }
   };
 }
@@ -104,7 +105,7 @@ function fixDataItem({presentations, sessionDescription, sessionChairs, ...rest}
   };
   // Add authors to index.
   if (newItem.sessionChairs.length) {
-    _.each(newItem.sessionChairs, addAuthor(`<strong>${newItem.sessionCode}</strong>`));
+    _.each(newItem.sessionChairs, addAuthor(`<em>${newItem.sessionCode}</em>`));
   }
 
   return newItem;
