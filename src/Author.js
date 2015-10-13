@@ -24,7 +24,7 @@ class Author extends Component {
         <fullname>{fullName}</fullname>
         { separator }
         { company ? <company>{ company }</company> : false }
-        { sessionCodes ? <code dangerouslySetInnerHTML={{__html: sessionCodes}}  /> : false }
+        { sessionCodes ? <code dangerouslySetInnerHTML={{__html: sessionCodes.join(', ')}}  /> : false }
       </person>
     );
     // Use function call instead of jsx to use computed tag name.
