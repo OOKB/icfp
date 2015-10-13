@@ -18,17 +18,20 @@ class PerformedPanel extends Component {
 
     return (
       <presentation>
-        <span className="session-type">{ sessionType }</span>
-        <sessioncode>{ sessionCode }</sessioncode>
-        <sessionname>{ sessionName }</sessionname>
-        <starttime>{ timeStr }</starttime>
-        <sessionroom>{ sessionRoom }</sessionroom>
+        <div className="meta-data">
+          {/*<span className="session-type">{ sessionType }</span>*/}
+          <sessioncode>{ sessionCode }</sessioncode>
+          <sessionname>{ sessionName }</sessionname>
+          {/*<starttime>{ timeStr }</starttime>*/}
+          <sessionroom>{ sessionRoom }</sessionroom>
+
+          { sessionChairs.map( item => (
+            <Author key={item.iD} tagName="moderator" {...item} />
+          ))}
+
+       </div>
 
         { DescriptionEl }
-
-        { sessionChairs.map( item => (
-          <Author key={item.iD} tagName="moderator" {...item} />
-        ))}
 
         { presentations.map( item => (
           <Presentation key={item.iD} {...item} />

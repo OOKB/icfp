@@ -11,29 +11,6 @@
   widows: 2;
 }
 
-//@page :left {
-//  margin-left: 0.5in;
-//  margin-right: 0.75in;
-//}
-//
-//@page :right {
-//  margin-left: 0.75in;
-//  margin-right: 0.5in;
-//}
-
-/** page numbers **/
-//@page :left {
-//  @bottom-left {
-//    content: counter(page);
-//  }
-//}
-//
-//@page :right {
-//  @bottom-right {
-//    content: counter(page);
-//  }
-//}
-
 /** some basic typography **/
 @gentonaStack: "Gentona Book", GentonaBook, "Gentona", "Helvetica Neue", Helvetica, Arial, sans-serif;
 @arnhemStack:  "Arnhem Pro", ArnhemPro, Georgia, serif;
@@ -93,20 +70,16 @@ postertitle, title {
   font-weight: bold;
 }
 
-//sessionname,
-//sessiontime,
-//sessionroom {
-//  -webkit-column-span: all; /* Chrome, Safari, Opera */
-//  -moz-column-span: all; /* Firefox */
-//  column-span: all;
-//}
-
 day > h2,
 poster-session sessionname {
   font-family: @leagueStack;
   font-size: 3rem;
   font-weight: 400;
 }
+
+
+
+
 
 /** style main poster session times **/
 .poster-session,
@@ -127,14 +100,14 @@ poster-session columns {
   margin-top: 1.2rem;
 }
 
-.columns, columns {
-  -webkit-column-count: 2; /* Chrome, Safari, Opera */
-  -moz-column-count: 2; /* Firefox */
-  column-count: 2;
-  -webkit-column-gap: 1.5rem; /* Chrome, Safari, Opera */
-  -moz-column-gap: 1.5rem; /* Firefox */
-  column-gap: 1.5rem;
-}
+//.columns, columns {
+//  -webkit-column-count: 2; /* Chrome, Safari, Opera */
+//  -moz-column-count: 2; /* Firefox */
+//  column-count: 2;
+//  -webkit-column-gap: 1.5rem; /* Chrome, Safari, Opera */
+//  -moz-column-gap: 1.5rem; /* Firefox */
+//  column-gap: 1.5rem;
+//}
 
 .time,
 sessiontime,
@@ -163,11 +136,11 @@ poster-session sessionroom {
   border-top: 1pt solid black;
   font-size: 1rem;
   padding-top: 1rem;
-  padding-bottom: 1.5rem;
+  padding-bottom: 2rem;
   padding-left: 4rem;
   /**/
   page-break-after: auto;
-  page-break-inside:avoid;
+//  page-break-inside:avoid;
 }
 
 /** id and title **/
@@ -183,11 +156,11 @@ poster-session sessionroom {
 
 
 /** Presentation/Panel settings **/
-presentation sessionroom,
-panel sessionroom {
-  display: inline-block;
-  padding-left: 1.1em;
-}
+//presentation sessionroom,
+//panel sessionroom {
+//  display: inline-block;
+//  padding-left: 1.1em;
+//}
 
 panel poster,
 presentation poster {
@@ -257,6 +230,9 @@ presentation sessionname {
   font-weight: bold;
 }
 
+presentation .session-type {
+  display: none;
+}
 
 
 
@@ -272,3 +248,32 @@ ataglance .presentation {
   padding-left: 0;
 }
 
+
+
+
+
+// attempting a nicer layout to match other interiors
+timeslot .meta-data {
+  float: left;
+  width: 22.5%;
+  margin: 0;
+  padding:0;
+}
+
+timeslot description,
+timeslot poster,
+timeslot presentation poster{
+  margin-left: ~'calc(22.5% + 3em)';
+  padding: .1em 0 0 0;
+}
+
+presentation::after {
+  content: '';
+  display: table;
+  clear: both;
+}
+
+sessioncode, sessionname, sessionroom, moderator, postertitle, author {
+  page-break-before: auto;
+  page-break-inside: avoid;
+}
