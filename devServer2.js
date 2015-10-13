@@ -62,8 +62,12 @@ function fixAuthor({firstname, lastname, company, presenter}) {
 
 function fixPresentation({orderof, description, authors}, i, {sessionType, sessionCode}) {
   const presentation = {};
+  // Poster authors.
   if (sessionType === 'Poster presentations') {
-    presentation.sessionCode = sessionCode.toString() + orderof.toString();
+    presentation.sessionCode = sessionCode.toString() + '.' + orderof.toString();
+    _.each(authors, author => addAuthor(presentation.sessionCode)(author));
+  } else {
+    _.each(authors, author => addAuthor(sessionCode)(author));
   }
   if (description && description.title) {
     presentation.description = {title: doTitleize(description.title)};
@@ -100,9 +104,8 @@ function fixDataItem({presentations, sessionDescription, sessionChairs, ...rest}
   };
   // Add authors to index.
   if (newItem.sessionChairs.length) {
-    _.each(newItem.sessionChairs, addAuthor(newItem.sessionCode));
+    _.each(newItem.sessionChairs, addAuthor(`<strong>${newItem.sessionCode}</strong>`));
   }
-  // Poster authors.
 
   return newItem;
 }
