@@ -140,9 +140,14 @@ poster-session sessionroom {
   padding-left: 4rem;
   /**/
   page-break-after: auto;
-//  page-break-inside:avoid;
+  page-break-inside:avoid;
 }
 
+sessioncode, sessionname, sessionroom, moderator, postertitle, author {
+  page-break-before: auto;
+  page-break-after: auto;
+  page-break-inside: avoid;
+}
 /** id and title **/
 .posterID, sessionCode {
   margin: 0 0 0 -4rem;
@@ -152,24 +157,18 @@ poster-session sessionroom {
 
 
 /** Presentation/Panel settings **/
-presentation sessionroom,
-panel sessionroom {
-  display: inline-block;
-  padding-left: 1.1em;
-}
-
 panel poster,
 presentation poster {
   border-top: none;
-  padding: .5rem 0 0 2rem;
+  padding: .5rem 0 0 1rem;
   font-family: @arnhemStack;
 }
 
 panel poster::before,
 presentation poster::before {
-  content: "— ";
+  content: "- ";
   display: block;
-  margin-left: -2rem;
+  margin-left: -1rem;
   float: left;
 }
 
@@ -189,23 +188,23 @@ poster presenter::before {
   text-transform: uppercase;
 }
 
-.author, author {
+.author, author, moderator {
   display: inline;
 }
 
-authors, author {
+authors, author, moderator {
   font-weight: 300;
   word-wrap: normal;
 }
 
-author::after {
+author::after, moderator::after {
   content: "; ";
   display: inline;
   margin-right: .225em;
   word-wrap: normal;
 }
 
-author:last-child::after {
+author:last-child::after, moderator:last-child::after {
   content: "";
   display: inline;
   margin-right: 0;
@@ -214,13 +213,30 @@ author:last-child::after {
 
 poster author:first-of-type::before {
   content: "Co-Author(s): ";
-  font-size: .85rem;
-  font-weight: normal;
-  text-transform: uppercase;
-  word-wrap: normal;
 }
 
-presentaion moderator::before {
+moderator:first-of-type::before {
+  content: "Moderator(s): ";
+}
+
+presentation .meta-data sessionroom::before {
+  content: 'Location: ';
+}
+
+moderator:first-of-type::before,
+presentation .meta-data sessionroom::before {
+  display: inline-block;
+  margin-top: .5em;
+  padding-right: .3em;
+}
+
+poster author:first-of-type::before,
+moderator:first-of-type::before,
+presentation .meta-data sessionroom::before {
+  font-size: .85rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  word-wrap: normal;
 }
 
 
@@ -232,6 +248,12 @@ presentation sessionname {
 
 presentation .session-type {
   display: none;
+}
+
+presentation::after {
+  content: '';
+  display: table;
+  clear: both;
 }
 
 
@@ -247,14 +269,11 @@ ataglance .presentation {
 
 
 
-// attempting a nicer layout to match other interiors
-presentation::after {
-  content: '';
-  display: table;
-  clear: both;
+description * {
+  margin-top: 0;
+  margin-bottom: 0;
 }
 
-sessioncode, sessionname, sessionroom, moderator, postertitle, author {
-  page-break-before: auto;
-  page-break-inside: avoid;
+description p:nth-child(2n+1) {
+  margin-top: .5em;
 }

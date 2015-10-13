@@ -5,8 +5,8 @@ import { where, groupBy } from 'lodash';
 
 const fullUrl = '/api';
 
-const TYPE = 'sessions';
-//const TYPE = 'posters';
+//const TYPE = 'sessions';
+const TYPE = 'posters';
 
 fetch(fullUrl)
   .then(response =>
