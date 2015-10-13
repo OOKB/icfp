@@ -12,11 +12,11 @@ class AtAGlance extends Component {
         <h3 className="breaker">For the At-A-Glance sections</h3>
         <h3>{timeStr}</h3>
 
-        <ul className="sessions-list">
+        <div className="sessions-list">
           { sessions.map( item => (
             <SessionsList key={item.sessionCode} {...item} />
           ))}
-        </ul>
+        </div>
       </ataglance>
     );
   }

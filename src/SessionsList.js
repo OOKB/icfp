@@ -4,13 +4,16 @@ class SessionsList extends Component {
   render() {
     const { sessionCode, sessionName, sessionRoom, sessionStartTime, sessionEndTime } = this.props;
     const timeStr = `${sessionStartTime} - ${sessionEndTime}`;
+    const separator = `U+0009`;
 
     return (
-      <li className="item presentation">
+      <div className="item presentation">
         <sessioncode>{ sessionCode }</sessioncode>
+        { separator }
         <sessionname><strong>{ sessionName }</strong></sessionname>
+        { separator }
         <sessionroom>{ sessionRoom }</sessionroom>
-      </li>
+      </div>
     );
   }
 }
