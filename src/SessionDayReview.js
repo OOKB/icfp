@@ -9,7 +9,6 @@ class Presentation extends Component {
     return (
       <day>
 
-        {/*
         <h2>{sessionDate}</h2>
         <p>At-a-glance</p>
         {
@@ -17,15 +16,8 @@ class Presentation extends Component {
             const key = item.sessionStartTime + item.sessionEndTime;
             return <AtAGlance key={key} {...item} />;
           })
-        }*/}
-
-        <h2>{sessionDate}</h2>
-        {
-          timeSlots.map( (item) => {
-            const key = item.sessionStartTime + item.sessionEndTime;
-            return <TimeSlot key={key} {...item} />;
-          })
         }
+
       </day>
     );
   }
