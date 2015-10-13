@@ -6,7 +6,7 @@ import webpackConfig from './webpack.config.dev';
 import cli from 'better-console';
 import _ from 'lodash';
 import Wreck from 'wreck';
-import {camelizeKeys} from 'humps';
+import {camelizeKeys, camelize} from 'humps';
 import {titleize} from 'inflection';
 import sanitizeHtml from 'sanitize-html';
 
@@ -39,13 +39,13 @@ function addAuthor(sessionCode) {
   return ({firstname, lastname}) => {
     const id = firstname + lastname;
     if (authorIndex[id]) {
-      authorIndex[id].sessions.push(sessionCode);
+      authorIndex[id].sessionCodes.push(sessionCode);
     } else {
       authorIndex[id] = {firstname, lastname, sessionCodes: [sessionCode]};
     }
   };
 }
-function fixAuthor({firstname, lastname, company}) {
+function fixAuthor({firstname, lastname, company, presenter}) {
   let companyStr = company;
   if (company.split(' ').length > 1) {
     companyStr = doTitleize(company);
@@ -54,25 +54,33 @@ function fixAuthor({firstname, lastname, company}) {
     company: companyStr,
     firstname: doTitleize(firstname),
     lastname: doTitleize(lastname),
+    presenter,
     // ...rest
   };
   return auth;
 }
 
-function fixPresentation(presentation, i, item) {
-  if (item.sessionType === 'Poster presentations') {
-    presentation.sessionCode = item.sessionCode.toString() + presentation.orderof.toString();
+function fixPresentation({orderof, description, authors, ...rest}, i, {sessionType, sessionCode}) {
+  const presentation = {...rest, description: {}};
+  // Poster authors.
+  if (sessionType === 'Poster presentations') {
+    presentation.sessionCode = sessionCode.toString() + '.' + orderof.toString();
+    _.each(authors, author => addAuthor('Poster ' + presentation.sessionCode)(author));
+  } else {
+    _.each(authors, author => addAuthor(sessionCode)(author));
   }
-  const description = {};
-  _.each(presentation.description, desc =>
-    description[desc.fieldLabel.toLowerCase()] = desc.fieldValue
+  // if (description && description.Title) {
+  //   presentation.description = {title: doTitleize(description.Title)};
+  // }
+  _.each(description, desc =>
+    presentation.description[camelize(desc.fieldLabel.toLowerCase())] = desc.fieldValue
   );
-  presentation.description = camelizeKeys(description);
-  if (presentation.description.title) {
-    presentation.description.title = doTitleize(presentation.description.title);
-  }
+  // presentation.description = camelizeKeys(presentation.description);
+  // if (presentation.description.title) {
+  //   presentation.description.title = doTitleize(presentation.description.title);
+  // }
   presentation.description = _.pick(presentation.description, 'title');
-  presentation.authors = presentation.authors.map(fixAuthor);
+  presentation.authors = authors.map(fixAuthor);
   if (presentation.authors.length > 1 && presentation.authors[0].presenter !== 1) {
     const presenter = _.remove(presentation.authors, {presenter: 1});
     presentation.authors = presenter.concat(presentation.authors);
@@ -89,16 +97,15 @@ function fixDescription(sessionDescription) {
 }
 function fixDataItem({presentations, sessionDescription, sessionChairs, ...rest}) {
   const newItem = {
-    presentations: presentations.map((presentation, i) => fixPresentation(presentation, i, item)),
+    presentations: presentations.map((presentation, i) => fixPresentation(presentation, i, rest)),
     sessionChairs: sessionChairs.map(fixAuthor),
     sessionDescription: fixDescription(sessionDescription),
     ...rest,
   };
   // Add authors to index.
   if (newItem.sessionChairs.length) {
-    _.each(newItem.sessionChairs, addAuthor(newItem.sessionCode));
+    _.each(newItem.sessionChairs, addAuthor(`<strong>${newItem.sessionCode}</strong>`));
   }
-  // Poster authors.
 
   return newItem;
 }
@@ -142,7 +149,7 @@ function fetchData(callback) {
         });
       });
       apiData.sessions = days;
-      apiData.authorList = _.sortByAll(_.values(authorIndex), ['lastname', 'firstname']);
+      apiData.authors = _.sortByAll(_.values(authorIndex), ['lastname', 'firstname']);
       cli.log('return new data');
       callback(apiData);
     });
