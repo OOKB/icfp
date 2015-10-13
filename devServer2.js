@@ -60,12 +60,12 @@ function fixAuthor({firstname, lastname, company, presenter}) {
   return auth;
 }
 
-function fixPresentation({orderof, description, authors}, i, {sessionType, sessionCode}) {
-  const presentation = {};
+function fixPresentation({orderof, description, authors, ...rest}, i, {sessionType, sessionCode}) {
+  const presentation = {...rest};
   // Poster authors.
   if (sessionType === 'Poster presentations') {
     presentation.sessionCode = sessionCode.toString() + '.' + orderof.toString();
-    _.each(authors, author => addAuthor(presentation.sessionCode)(author));
+    _.each(authors, author => addAuthor('Poster ' + presentation.sessionCode)(author));
   } else {
     _.each(authors, author => addAuthor(sessionCode)(author));
   }
