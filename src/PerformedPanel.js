@@ -24,11 +24,11 @@ class PerformedPanel extends Component {
         <starttime>{ timeStr }</starttime>
         <sessionroom>{ sessionRoom }</sessionroom>
 
-        { DescriptionEl }
-
         { sessionChairs.map( item => (
           <Author key={item.iD} tagName="moderator" {...item} />
         ))}
+
+        { DescriptionEl }
 
         { presentations.map( item => (
           <Presentation key={item.iD} {...item} />
