@@ -149,7 +149,7 @@ function fetchData(callback) {
         });
       });
       apiData.sessions = days;
-      apiData.authorList = _.sortByAll(_.values(authorIndex), ['lastname', 'firstname']);
+      apiData.authors = _.sortByAll(_.values(authorIndex), ['lastname', 'firstname']);
       cli.log('return new data');
       callback(apiData);
     });
