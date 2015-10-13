@@ -13,7 +13,7 @@ class PerformedPanel extends Component {
     let DescriptionEl = false;
     if (sessionDescription) {
       DescriptionEl =
-        <description dangerouslySetInnerHTML={{__html: sessionDescription}} />
+        <description dangerouslySetInnerHTML={{__html: sessionDescription}} />;
     }
 
     return (
@@ -38,7 +38,7 @@ class PerformedPanel extends Component {
         ))}
 
       </presentation>
-    )
+    );
   }
 }
 
