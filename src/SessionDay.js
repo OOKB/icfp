@@ -8,6 +8,8 @@ class Presentation extends Component {
     const { sessionDate, timeSlots } = this.props;
     return (
       <day>
+
+        {/*
         <h2>{sessionDate}</h2>
         <p>At-a-glance</p>
         {
@@ -15,10 +17,9 @@ class Presentation extends Component {
             const key = item.sessionStartTime + item.sessionEndTime;
             return <AtAGlance key={key} {...item} />;
           })
-        }
+        }*/}
 
         <h2>{sessionDate}</h2>
-        <p>Full Sessions listing</p>
         {
           timeSlots.map( (item) => {
             const key = item.sessionStartTime + item.sessionEndTime;

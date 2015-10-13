@@ -8,8 +8,7 @@ class SessionsList extends Component {
     return (
       <li className="item presentation">
         <sessioncode>{ sessionCode }</sessioncode>
-        <sessionname>{ sessionName }</sessionname>
-        <starttime>{ timeStr }</starttime>
+        <sessionname><strong>{ sessionName }</strong></sessionname>
         <sessionroom>{ sessionRoom }</sessionroom>
       </li>
     );
