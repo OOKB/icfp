@@ -6,7 +6,7 @@ import Author from './Author';
 class PerformedPanel extends Component {
   render() {
     const { sessionCode, sessionName, sessionRoom, sessionStartTime, sessionEndTime,
-            sessionDescription, sessionChairs, presentations, sessionType
+            sessionDescription, sessionChairs, presentations, sessionType,
           } = this.props;
     const timeStr = `${sessionStartTime} - ${sessionEndTime}`;
 
