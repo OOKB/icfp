@@ -3,7 +3,7 @@ import webpack from 'webpack';
 import webpackDevMiddleware from 'webpack-dev-middleware';
 import webpackHotMiddleware from 'webpack-hot-middleware';
 import webpackConfig from './webpack.config.dev';
-
+import cli from 'better-console';
 import _ from 'lodash';
 import Wreck from 'wreck';
 import {camelizeKeys} from 'humps';
@@ -27,7 +27,7 @@ app.use(webpackHotMiddleware(compiler));
 app.use(express.static('public'));
 
 let apiData = null;
-const authorList = [];
+const authorIndex = {};
 
 function doTitleize(str) {
   if (str === str.toUpperCase() || str.toLowerCase()) {
@@ -35,7 +35,16 @@ function doTitleize(str) {
   }
   return str;
 }
-
+function addAuthor(sessionCode) {
+  return ({firstname, lastname}) => {
+    const id = firstname + lastname;
+    if (authorIndex[id]) {
+      authorIndex[id].sessions.push(sessionCode);
+    } else {
+      authorIndex[id] = {firstname, lastname, sessionCodes: [sessionCode]};
+    }
+  };
+}
 function fixAuthor({firstname, lastname, company}) {
   let companyStr = company;
   if (company.split(' ').length > 1) {
@@ -47,40 +56,62 @@ function fixAuthor({firstname, lastname, company}) {
     lastname: doTitleize(lastname),
     // ...rest
   };
-  authorList.push(auth);
   return auth;
 }
 
-function fixDataItem(item) {
-  item.presentations = item.presentations.map((presentation) => {
-    const description = {};
-    _.each(presentation.description, desc =>
-      description[desc.fieldLabel.toLowerCase()] = desc.fieldValue
-    );
-    presentation.description = camelizeKeys(description);
-    if (presentation.description.title) {
-      presentation.description.title = doTitleize(presentation.description.title);
-    }
-    presentation.authors = presentation.authors.map(fixAuthor);
-    if (presentation.authors.length > 1 && presentation.authors[0].presenter !== 1) {
-      const presenter = _.remove(presentation.authors, {presenter: 1});
-      presentation.authors = presenter.concat(presentation.authors);
-    }
-    return presentation;
+function fixPresentation(presentation, i, item) {
+  if (item.sessionType === 'Poster presentations') {
+    presentation.sessionCode = item.sessionCode.toString() + presentation.orderof.toString();
+  }
+  const description = {};
+  _.each(presentation.description, desc =>
+    description[desc.fieldLabel.toLowerCase()] = desc.fieldValue
+  );
+  presentation.description = camelizeKeys(description);
+  if (presentation.description.title) {
+    presentation.description.title = doTitleize(presentation.description.title);
+  }
+  presentation.description = _.pick(presentation.description, 'title');
+  presentation.authors = presentation.authors.map(fixAuthor);
+  if (presentation.authors.length > 1 && presentation.authors[0].presenter !== 1) {
+    const presenter = _.remove(presentation.authors, {presenter: 1});
+    presentation.authors = presenter.concat(presentation.authors);
+  }
+  return presentation;
+}
+function fixDescription(sessionDescription) {
+  if (!sessionDescription) {
+    return sessionDescription;
+  }
+  return sanitizeHtml(sessionDescription, {
+    allowedTags: [ 'b', 'i', 'em', 'strong', 'p', 'ul', 'li'],
   });
-  item.sessionChairs = item.sessionChairs.map(fixAuthor);
-  return item;
+}
+function fixDataItem({presentations, sessionDescription, sessionChairs, ...rest}) {
+  const newItem = {
+    presentations: presentations.map((presentation, i) => fixPresentation(presentation, i, item)),
+    sessionChairs: sessionChairs.map(fixAuthor),
+    sessionDescription: fixDescription(sessionDescription),
+    ...rest,
+  };
+  // Add authors to index.
+  if (newItem.sessionChairs.length) {
+    _.each(newItem.sessionChairs, addAuthor(newItem.sessionCode));
+  }
+  // Poster authors.
+
+  return newItem;
 }
 
 function fetchData(callback) {
   var fullUrl = 'http://www.xcdsystem.com/icfp/admin/program.json';
   if (apiData) {
-    console.log('return cached data');
+    cli.log('return cached data');
     callback(apiData);
   } else {
-    console.log('fetch new data');
+    cli.log('fetch new data');
     Wreck.get(fullUrl, {json: true}, (err, response, payload) => {
-      console.log('transform new data');
+      cli.log('transform new data');
       const items = _.map(camelizeKeys(payload), fixDataItem);
       apiData = {
         posters: _.remove(items, {sessionType: 'Poster presentations'}),
@@ -111,8 +142,8 @@ function fetchData(callback) {
         });
       });
       apiData.sessions = days;
-
-      console.log('return new data');
+      apiData.authorList = _.sortByAll(_.values(authorIndex), ['lastname', 'firstname']);
+      cli.log('return new data');
       callback(apiData);
     });
   }
@@ -120,7 +151,7 @@ function fetchData(callback) {
 fetchData(() => {return;});
 app.get('/api', (req, res) => {
   if (apiData) {
-    console.log('return cached data');
+    cli.log('return cached data');
     res.send(apiData);
   } else {
     res.send({error: true, msg: 'data not ready yet'});
@@ -136,8 +167,8 @@ app.get('/api', (req, res) => {
 
 app.listen(port, 'localhost', (err) => {
   if (err) {
-    console.log(err);
+    cli.log(err);
     return;
   }
-  console.log('Listening at http://localhost:'+port);
+  cli.log('Listening at http://localhost:' + port);
 });

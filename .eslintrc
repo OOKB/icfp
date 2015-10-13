@@ -12,7 +12,7 @@
   "rules": {
     "no-var": 0,
     "indent": [2, 2, {"SwitchCase": 1}],
-    "id-length": [2, {"min": 3, "max": 20, "properties": "never", "exceptions": ["r", "_"]}],
+    "id-length": [2, {"min": 3, "max": 20, "properties": "never", "exceptions": ["r", "_", "id", "i"]}],
     "strict": [2, "never"],
     "react/jsx-uses-react": 2,
     "react/jsx-uses-vars": 2,
