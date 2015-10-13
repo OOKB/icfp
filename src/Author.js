@@ -13,7 +13,10 @@ class Author extends Component {
       }
     }
 
-    const fullName = `${firstname} ${lastname}`;
+    let fullName = `${firstname} ${lastname}`;
+    if (sessionCodes) {
+      fullName = `${lastname}, ${firstname}`;
+    }
     const separator = ', ';
     // Define the insides of the component.
     const DetailsEl = (
