@@ -39,13 +39,13 @@ function addAuthor(sessionCode) {
   return ({firstname, lastname}) => {
     const id = firstname + lastname;
     if (authorIndex[id]) {
-      authorIndex[id].sessions.push(sessionCode);
+      authorIndex[id].sessionCodes.push(sessionCode);
     } else {
       authorIndex[id] = {firstname, lastname, sessionCodes: [sessionCode]};
     }
   };
 }
-function fixAuthor({firstname, lastname, company}) {
+function fixAuthor({firstname, lastname, company, presenter}) {
   let companyStr = company;
   if (company.split(' ').length > 1) {
     companyStr = doTitleize(company);
@@ -54,25 +54,29 @@ function fixAuthor({firstname, lastname, company}) {
     company: companyStr,
     firstname: doTitleize(firstname),
     lastname: doTitleize(lastname),
+    presenter,
     // ...rest
   };
   return auth;
 }
 
-function fixPresentation(presentation, i, item) {
-  if (item.sessionType === 'Poster presentations') {
-    presentation.sessionCode = item.sessionCode.toString() + presentation.orderof.toString();
+function fixPresentation({orderof, description, authors}, i, {sessionType, sessionCode}) {
+  const presentation = {};
+  if (sessionType === 'Poster presentations') {
+    presentation.sessionCode = sessionCode.toString() + orderof.toString();
   }
-  const description = {};
-  _.each(presentation.description, desc =>
-    description[desc.fieldLabel.toLowerCase()] = desc.fieldValue
-  );
-  presentation.description = camelizeKeys(description);
-  if (presentation.description.title) {
-    presentation.description.title = doTitleize(presentation.description.title);
+  if (description && description.title) {
+    presentation.description = {title: doTitleize(description.title)};
   }
-  presentation.description = _.pick(presentation.description, 'title');
-  presentation.authors = presentation.authors.map(fixAuthor);
+  // _.each(presentation.description, desc =>
+  //   description[desc.fieldLabel.toLowerCase()] = desc.fieldValue
+  // );
+  // presentation.description = camelizeKeys(description);
+  // if (presentation.description.title) {
+  //   presentation.description.title = doTitleize(presentation.description.title);
+  // }
+  // presentation.description = _.pick(presentation.description, 'title');
+  presentation.authors = authors.map(fixAuthor);
   if (presentation.authors.length > 1 && presentation.authors[0].presenter !== 1) {
     const presenter = _.remove(presentation.authors, {presenter: 1});
     presentation.authors = presenter.concat(presentation.authors);
@@ -89,7 +93,7 @@ function fixDescription(sessionDescription) {
 }
 function fixDataItem({presentations, sessionDescription, sessionChairs, ...rest}) {
   const newItem = {
-    presentations: presentations.map((presentation, i) => fixPresentation(presentation, i, item)),
+    presentations: presentations.map((presentation, i) => fixPresentation(presentation, i, rest)),
     sessionChairs: sessionChairs.map(fixAuthor),
     sessionDescription: fixDescription(sessionDescription),
     ...rest,
