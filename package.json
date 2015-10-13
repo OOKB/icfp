@@ -58,6 +58,7 @@
     "isomorphic-fetch": "^2.1.1",
     "lodash": "^3.10.1",
     "react": "^0.13.0",
+    "react-router": "^1.0.0-rc3",
     "wreck": "^6.3.0"
   }
 }

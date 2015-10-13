@@ -6,7 +6,7 @@ import webpackConfig from './webpack.config.dev';
 import cli from 'better-console';
 import _ from 'lodash';
 import Wreck from 'wreck';
-import {camelizeKeys} from 'humps';
+import {camelizeKeys, camelize} from 'humps';
 import {titleize} from 'inflection';
 import sanitizeHtml from 'sanitize-html';
 
@@ -61,7 +61,7 @@ function fixAuthor({firstname, lastname, company, presenter}) {
 }
 
 function fixPresentation({orderof, description, authors, ...rest}, i, {sessionType, sessionCode}) {
-  const presentation = {...rest};
+  const presentation = {...rest, description: {}};
   // Poster authors.
   if (sessionType === 'Poster presentations') {
     presentation.sessionCode = sessionCode.toString() + '.' + orderof.toString();
@@ -69,17 +69,17 @@ function fixPresentation({orderof, description, authors, ...rest}, i, {sessionTy
   } else {
     _.each(authors, author => addAuthor(sessionCode)(author));
   }
-  if (description && description.title) {
-    presentation.description = {title: doTitleize(description.title)};
-  }
-  // _.each(presentation.description, desc =>
-  //   description[desc.fieldLabel.toLowerCase()] = desc.fieldValue
-  // );
-  // presentation.description = camelizeKeys(description);
+  // if (description && description.Title) {
+  //   presentation.description = {title: doTitleize(description.Title)};
+  // }
+  _.each(description, desc =>
+    presentation.description[camelize(desc.fieldLabel.toLowerCase())] = desc.fieldValue
+  );
+  // presentation.description = camelizeKeys(presentation.description);
   // if (presentation.description.title) {
   //   presentation.description.title = doTitleize(presentation.description.title);
   // }
-  // presentation.description = _.pick(presentation.description, 'title');
+  presentation.description = _.pick(presentation.description, 'title');
   presentation.authors = authors.map(fixAuthor);
   if (presentation.authors.length > 1 && presentation.authors[0].presenter !== 1) {
     const presenter = _.remove(presentation.authors, {presenter: 1});

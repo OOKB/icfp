@@ -1,5 +1,9 @@
 import React from 'react';
-import { App } from './App';
+import { Router, Route } from 'react-router';
+
+import App from './App';
+import Apps from './Apps';
+
 import 'isomorphic-fetch';
 
 const fullUrl = '/api';
@@ -16,5 +20,16 @@ fetch(fullUrl)
       return Promise.reject(json);
     }
 
-    React.render(<App items={json[TYPE]} type={TYPE} />, document.getElementById('root'));
+    React.render(
+      <Router>
+        <Route path="/" component={App} items={'kai'}>
+          <Route path="posters" component={Apps} items={json.posters} type="posters" />
+          <Route path="sessions" component={Apps} items={json.sessions} type="sessions" />
+          <Route path="other" component={Apps} items={json.sessions} type="other" />
+        </Route>
+      </Router>,
+      document.getElementById('root')
+    );
   });
+
+// <App items={json[TYPE]} type={TYPE} />, document.getElementById('root')
