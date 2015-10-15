@@ -64,24 +64,31 @@ function fixAuthor({firstname, lastname, company, presenter}) {
 function fixPresentation({orderof, description, authors, ...rest}, i, {sessionType, sessionCode}) {
   const presentation = {...rest, description: {}};
   presentation.authors = authors.map(fixAuthor);
+  // Fix description fields.
+  _.each(description, desc =>
+    presentation.description[camelize(desc.fieldLabel.toLowerCase())] = desc.fieldValue
+  );
+  if (presentation.description.title) {
+    presentation.description.title = doTitleize(presentation.description.title);
+  }
+
   // Poster authors.
   if (sessionType === 'Poster presentations') {
     presentation.sessionCode = sessionCode.toString() + '.' + orderof.toString();
     _.each(presentation.authors, author => addAuthor('Poster ' + presentation.sessionCode)(author));
-  } else {
+    presentation.description = _.pick(presentation.description, 'title');
+  } else if (sessionType === 'Oral presentations') {
     _.each(presentation.authors, author => addAuthor(sessionCode)(author));
+    presentation.description = _.pick(presentation.description, 'title');
+  } else if (sessionType === 'Preformed Panel') {
+    _.each(presentation.authors, author => addAuthor(sessionCode)(author));
+  } else {
+    cli.error(presentation);
   }
   // if (description && description.Title) {
   //   presentation.description = {title: doTitleize(description.Title)};
   // }
-  _.each(description, desc =>
-    presentation.description[camelize(desc.fieldLabel.toLowerCase())] = desc.fieldValue
-  );
-  // presentation.description = camelizeKeys(presentation.description);
-  // if (presentation.description.title) {
-  //   presentation.description.title = doTitleize(presentation.description.title);
-  // }
-  presentation.description = _.pick(presentation.description, 'title');
+
   if (presentation.authors.length > 1 && presentation.authors[0].presenter !== 1) {
     const presenter = _.remove(presentation.authors, {presenter: 1});
     presentation.authors = presenter.concat(presentation.authors);
