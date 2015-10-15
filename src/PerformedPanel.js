@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 
 import Presentation from './Presentation';
 import Author from './Author';
@@ -8,7 +8,7 @@ class PerformedPanel extends Component {
     const { sessionCode, sessionName, sessionRoom, sessionStartTime, sessionEndTime,
             sessionDescription, sessionChairs, presentations, sessionType,
           } = this.props;
-    const timeStr = `${sessionStartTime} - ${sessionEndTime}`;
+    // const timeStr = `${sessionStartTime} - ${sessionEndTime}`;
 
     let DescriptionEl = false;
     if (sessionDescription) {
@@ -18,10 +18,10 @@ class PerformedPanel extends Component {
 
     return (
       <presentation>
-        {/*<span className="session-type">{ sessionType }</span>*/}
+        {/* <span className="session-type">{ sessionType }</span> */}
         <sessioncode>{ sessionCode }</sessioncode>
         <sessionname>{ sessionName }</sessionname>
-        {/*<starttime>{ timeStr }</starttime>*/}
+        {/* <starttime>{ timeStr }</starttime> */}
         <sessionroom>{ sessionRoom }</sessionroom>
 
         { sessionChairs.map( item => (
@@ -38,7 +38,12 @@ class PerformedPanel extends Component {
     );
   }
 }
-
+PerformedPanel.propTypes = {
+  sessionCode: PropTypes.string.isRequired,
+  sessionName: PropTypes.string.isRequired,
+  sessionRoom: PropTypes.string.isRequired,
+  sessionStartTime: PropTypes.string.isRequired,
+};
 export default PerformedPanel;
 
 // Preformed Panel
