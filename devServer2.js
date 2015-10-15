@@ -61,9 +61,33 @@ function fixAuthor({firstname, lastname, company, presenter}) {
   return auth;
 }
 
+function fixPanelDescription(description) {
+  const panelPresentationIndex = {};
+  function addPanelIndex(matches, fieldId, value) {
+    if (matches) {
+      const index = parseInt(matches[1], 10);
+      if (!panelPresentationIndex[index]) {
+        panelPresentationIndex[index] = {index};
+      }
+      panelPresentationIndex[index][fieldId] = value;
+    }
+  }
+  _.each(description, (value, key) => {
+    const isTitle = key.match(/^presentation([1-9][0-9]?)Title$/);
+    addPanelIndex(isTitle, 'title', value);
+    const isPresenter = key.match(/^presenterOfPresentation([1-9][0-9]?)/);
+    addPanelIndex(isPresenter, 'presenter', value);
+  });
+  return _.values(panelPresentationIndex);
+}
 function fixPresentation({orderof, description, authors, ...rest}, i, {sessionType, sessionCode}) {
   const presentation = {...rest, description: {}};
-  presentation.authors = authors.map(fixAuthor);
+  presentation.authors = authors.map(auth =>
+    fixAuthor({
+      ...auth,
+      presenter: sessionType === 'Preformed Panel' ? undefined : auth.presenter,
+    })
+  );
   // Fix description fields.
   _.each(description, desc =>
     presentation.description[camelize(desc.fieldLabel.toLowerCase())] = desc.fieldValue
@@ -77,13 +101,15 @@ function fixPresentation({orderof, description, authors, ...rest}, i, {sessionTy
     presentation.sessionCode = sessionCode.toString() + '.' + orderof.toString();
     _.each(presentation.authors, author => addAuthor('Poster ' + presentation.sessionCode)(author));
     presentation.description = _.pick(presentation.description, 'title');
-  } else if (sessionType === 'Oral presentations') {
+  } else if (sessionType === 'Oral presentations' || sessionType === 'IBP Interactive session') {
     _.each(presentation.authors, author => addAuthor(sessionCode)(author));
     presentation.description = _.pick(presentation.description, 'title');
   } else if (sessionType === 'Preformed Panel') {
+    presentation.panelPresentations = fixPanelDescription(presentation.description);
+    presentation.description = {};
     _.each(presentation.authors, author => addAuthor(sessionCode)(author));
   } else {
-    cli.error(presentation);
+    cli.error(sessionType);
   }
   // if (description && description.Title) {
   //   presentation.description = {title: doTitleize(description.Title)};
