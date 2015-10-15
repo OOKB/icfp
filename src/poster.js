@@ -1,10 +1,10 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 
 import Presentation from './Presentation';
 
 class Poster extends Component {
   render() {
-    const { sessionName, sessionStartTime, sessionEndTime, sessionRoom, presentations, num } = this.props;
+    const { sessionName, sessionStartTime, sessionEndTime, sessionRoom, presentations } = this.props;
     const sessionTime = `${sessionStartTime}-${sessionEndTime}`;
 
     return (
@@ -17,17 +17,20 @@ class Poster extends Component {
         {/* <!-- day? --> */}
 
         <columns>
-          { presentations.map( (item, i) => {
-            const presNum = `${num}.${i+1}`;
-            return (
-              <Presentation num={presNum} key={presNum} {...item} />
-            )
-          })}
+          { presentations.map( item => (
+              <Presentation key={item.id} {...item} />
+          ))}
         </columns>
 
       </poster-session>
     );
   }
 }
-
+Poster.propTypes = {
+  sessionName: PropTypes.string.isRequired,
+  sessionStartTime: PropTypes.string.isRequired,
+  sessionEndTime: PropTypes.string.isRequired,
+  sessionRoom: PropTypes.string.isRequired,
+  presentations: PropTypes.array.isRequired,
+};
 export default Poster;

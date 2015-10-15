@@ -98,8 +98,10 @@ function fixPresentation({orderof, description, authors, ...rest}, i, {sessionTy
 
   // Poster authors.
   if (sessionType === 'Poster presentations') {
-    presentation.sessionCode = sessionCode.toString() + '.' + orderof.toString();
-    _.each(presentation.authors, author => addAuthor('Poster ' + presentation.sessionCode)(author));
+    const idParts = presentation.iD.toString().split('.');
+    presentation.id = idParts[0] + '.' + _.padRight(idParts[1], 2, '0');
+    delete presentation.iD;
+    _.each(presentation.authors, author => addAuthor('Poster ' + presentation.id)(author));
     presentation.description = _.pick(presentation.description, 'title');
   } else if (sessionType === 'Oral presentations' || sessionType === 'IBP Interactive session') {
     _.each(presentation.authors, author => addAuthor(sessionCode)(author));

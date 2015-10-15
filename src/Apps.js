@@ -19,7 +19,7 @@ class Apps extends Component {
 
     return (
       <div id={'type-' + type}>
-        { items.map( (item, i) => <ItemTemplate key={item[keyFieldId]} num={i + 1} {...item} /> ) }
+        { items.map( item => <ItemTemplate key={item[keyFieldId]} {...item} /> ) }
       </div>
     );
   }

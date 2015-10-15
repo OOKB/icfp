@@ -4,7 +4,7 @@ import Author from './Author';
 
 class Presentation extends Component {
   render() {
-    const { authors, description, panelPresentations, num } = this.props;
+    const { authors, description, panelPresentations, id } = this.props;
 
     // const [presenter, ...otherAuthors] = authors;
     // presenter prints out first, presenter with value of "1" in the json indicated they are the presenter
@@ -19,7 +19,7 @@ class Presentation extends Component {
     }
     return (
       <poster>
-        { num ? <sessionCode>{num}</sessionCode> : false }
+        { id ? <sessionCode>{id}</sessionCode> : false }
         { description.title ? <postertitle>{description.title}</postertitle> : false }
         { PanelPresentationsEl }
         <authors>
@@ -33,6 +33,6 @@ Presentation.propTypes = {
   authors: PropTypes.array.isRequired,
   description: PropTypes.object.isRequired,
   panelPresentations: PropTypes.array,
-  num: PropTypes.string,
+  id: PropTypes.string,
 };
 export default Presentation;
