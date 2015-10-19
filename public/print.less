@@ -218,16 +218,20 @@ authors, author, moderator {
   word-wrap: normal;
 }
 
-author::after, moderator::after {
+author::after,
+moderator::after {
   content: "; ";
   display: inline;
   margin-right: .225em;
   word-wrap: normal;
 }
 
-author:last-child::after, moderator:last-child::after {
+author:last-child::after,
+author:last-of-type::after,
+moderator:last-child::after,
+moderator:last-of-type::after {
   content: "";
-  display: inline;
+  display: none;
   margin-right: 0;
   word-wrap: normal;
 }
@@ -260,6 +264,9 @@ presentation sessionroom::before {
   word-wrap: normal;
 }
 
+person company::before {
+  content: ', ';
+}
 
 /** presentation / abstract / panel additions **/
 panel sessionname,

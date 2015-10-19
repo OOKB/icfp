@@ -22,7 +22,6 @@ class Author extends Component {
     const DetailsEl = (
       <person>
         <fullname>{fullName}</fullname>
-        { separator }
         { company ? <company>{ company }</company> : false }
         { sessionCodes ? <code dangerouslySetInnerHTML={{__html: sessionCodes.join(', ')}}  /> : false }
       </person>
