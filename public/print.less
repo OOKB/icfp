@@ -169,13 +169,30 @@ presentation poster {
 }
 
 panel poster::before,
-presentation poster::before {
+presentation poster::before,
+.panel-presenter::before{
   content: "- ";
   display: block;
   margin-left: -1rem;
   float: left;
 }
 
+.panel-presenter:first-child::before{
+  content: "";
+  display: none;
+}
+
+.panel-presenter {
+  margin-top: .5em;
+}
+.panel-presenter:first-child {
+  margin-top: 0;
+}
+
+.panel-presenter + authors {
+  margin-top: .5em;
+  margin-left: -1em;
+}
 
 /** style author names **/
 poster .presenter,
@@ -300,4 +317,12 @@ author strong,
 strong {
   font-weight: bold;
 }
+
+
+
+
+
+// last minute panel shit
+
+
 

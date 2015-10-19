@@ -18,9 +18,9 @@ class PerformedPanel extends Component {
 
     return (
       <presentation>
-        {/* <span className="session-type">{ sessionType }</span> */}
         <sessioncode>{ sessionCode }</sessioncode>
         <sessionname>{ sessionName }</sessionname>
+        <span className="session-type">{ sessionType }</span>
         {/* <starttime>{ timeStr }</starttime> */}
         <sessionroom>{ sessionRoom }</sessionroom>
 
