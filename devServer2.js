@@ -30,10 +30,15 @@ let apiData = null;
 const authorIndex = {};
 
 function doTitleize(str) {
-  if (str === str.toUpperCase() || str.toLowerCase()) {
-    return titleize(str);
+  // If the string is empty or false return it.
+  if (!str) return str;
+  // Cast every value to a string type.
+  const _str = str.toString();
+  // Titleize if all lower or all upper.
+  if (_str === _str.toUpperCase() || _str === _str.toLowerCase()) {
+    return titleize(_str);
   }
-  return str;
+  return _str;
 }
 function addAuthor(sessionCode) {
   return ({firstname, lastname, presenter}) => {
