@@ -53,6 +53,7 @@
     "webpack-hot-middleware": "^2.0.0"
   },
   "dependencies": {
+    "history": "^1.17.0",
     "humps": "^0.7.0",
     "inflection": "^1.7.1",
     "isomorphic-fetch": "^2.1.1",
